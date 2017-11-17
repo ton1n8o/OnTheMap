@@ -9,17 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    // MARK: Outlets
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var userEmail: UITextField!
+    @IBOutlet weak var userPassword: UITextField!
+
+    // MARK: Actions
+    
+    @IBAction func loginPressed(_ sender: AnyObject) {
+        guard  let email = userEmail.text, !email.isEmpty else {
+            print("Please fill in your email.")
+            return
+        }
+        guard  let password = userPassword.text, !password.isEmpty else {
+            print("Please fill in your password.")
+            return
+        }
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
 

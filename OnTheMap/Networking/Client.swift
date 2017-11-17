@@ -19,8 +19,9 @@ class Client: NSObject {
     var sessionID: String? = nil
     
     // MARK: Initializers
-    
     override init() {
         super.init()
     }
+    
+    
 }
