@@ -24,4 +24,19 @@ struct Constants {
     struct HTTPHeaderFieldValue {
         static let json = "application/json"
     }
+    
+    // MARK: Methods
+    struct Methods {
+        // MARK: Authentication
+        static let Authentication = "/session"
+    }
+    
+    // MARK: JSON Response Keys
+    struct JSONResponseKeys {
+        // MARK: Account
+        static let Account = "account"
+        static let Registered = "registered"
+        static let Session = "session"
+        static let SessionID = "id"
+    }
 }
