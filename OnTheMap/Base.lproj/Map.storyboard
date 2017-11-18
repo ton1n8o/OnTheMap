@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,8 +26,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="On The Map" id="ijq-yz-dJU">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="4Kl-nW-di6"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="HmN-Ch-ITE"/>
+                                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="AnQ-6X-OIh"/>
+                                        <rightBarButtonItems>
+                                            <barButtonItem image="icon_addpin" style="plain" id="ZBN-0q-ufq"/>
+                                            <barButtonItem title="Item" image="icon_refresh" id="HmN-Ch-ITE"/>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -46,7 +50,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uFF-yC-guE"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="vhe-rp-6jx"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" id="vhe-rp-6jx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9au-ML-flP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,8 +71,8 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="On The Map" id="oQJ-yx-PIg">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" id="8GB-u1-1BZ"/>
-                                        <barButtonItem key="rightBarButtonItem" title="Item" id="whv-co-374"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icon_pin" id="8GB-u1-1BZ"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" image="icon_refresh" id="whv-co-374"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -89,7 +93,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2jW-9r-dyL"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" id="8C3-B5-uTM"/>
+                    <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" id="8C3-B5-uTM"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1H-7u-ZcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,4 +119,11 @@
             <point key="canvasLocation" x="-828" y="-2590"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon_addpin" width="24" height="24"/>
+        <image name="icon_listview-deselected" width="75" height="50"/>
+        <image name="icon_mapview-deselected" width="75" height="50"/>
+        <image name="icon_pin" width="24" height="24"/>
+        <image name="icon_refresh" width="24" height="24"/>
+    </resources>
 </document>
