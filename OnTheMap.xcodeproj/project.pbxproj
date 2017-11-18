@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026395651FC04D8000D91F9D /* ViewController+Extensions.swift */; };
 		02E68A7A1FB53065003B57DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A791FB53065003B57DB /* AppDelegate.swift */; };
 		02E68A7C1FB53065003B57DB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A7B1FB53065003B57DB /* LoginViewController.swift */; };
 		02E68A7F1FB53065003B57DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E68A7D1FB53065003B57DB /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		026395651FC04D8000D91F9D /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		02E68A761FB53065003B57DB /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E68A791FB53065003B57DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02E68A7B1FB53065003B57DB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		026395641FC04D6300D91F9D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				026395651FC04D8000D91F9D /* ViewController+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		02E68A6D1FB53065003B57DB = {
 			isa = PBXGroup;
 			children = (
@@ -60,6 +70,7 @@
 			children = (
 				02E68A791FB53065003B57DB /* AppDelegate.swift */,
 				02E68A8C1FB539F1003B57DB /* Constants.swift */,
+				026395641FC04D6300D91F9D /* Extensions */,
 				02E68A8B1FB531F3003B57DB /* ViewControllers */,
 				02E68A8E1FB53CF7003B57DB /* Networking */,
 				02E68A7D1FB53065003B57DB /* Main.storyboard */,
@@ -159,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02E68A7C1FB53065003B57DB /* LoginViewController.swift in Sources */,
+				026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */,
 				02E68A7A1FB53065003B57DB /* AppDelegate.swift in Sources */,
 				02E68A901FB53D3B003B57DB /* Client.swift in Sources */,
 				02E68A8D1FB539F1003B57DB /* Constants.swift in Sources */,
