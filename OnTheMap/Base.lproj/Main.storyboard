@@ -77,11 +77,20 @@
                         <outlet property="buttonLogin" destination="Q3J-Ca-CtM" id="puo-GN-OSM"/>
                         <outlet property="userEmail" destination="kn0-gC-vh0" id="RLa-DQ-1Pv"/>
                         <outlet property="userPassword" destination="BRp-Xa-YOb" id="YCZ-9b-TXT"/>
+                        <segue destination="RsS-63-vOz" kind="showDetail" identifier="showMap" action="showViewController:sender:" id="EQv-Uz-De8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84" y="57"/>
+            <point key="canvasLocation" x="-110" y="52"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="buU-X0-EQY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" id="RsS-63-vOz" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NG9-e8-c9B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="534" y="51"/>
         </scene>
     </scenes>
 </document>

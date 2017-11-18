@@ -38,9 +38,10 @@ class LoginViewController: UIViewController {
             showInfo(withTitle: "Field required", withMessage: "Please fill in your password.")
             return
         }
+        
         Client.shared().authenticateWith(userEmail: email, andPassword: password) { (success, errorMessage) in
             if success {
-                
+                self.performSegue(withIdentifier: "showMap", sender: nil)
             } else {
                 self.performUIUpdatesOnMain {
                     self.showInfo(withTitle: "Login falied", withMessage: errorMessage ?? "Error while performing login.")

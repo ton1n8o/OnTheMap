@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026395651FC04D8000D91F9D /* ViewController+Extensions.swift */; };
+		0263956C1FC0544C00D91F9D /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0263956B1FC0544C00D91F9D /* Map.storyboard */; };
 		02E68A7A1FB53065003B57DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A791FB53065003B57DB /* AppDelegate.swift */; };
 		02E68A7C1FB53065003B57DB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A7B1FB53065003B57DB /* LoginViewController.swift */; };
 		02E68A7F1FB53065003B57DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E68A7D1FB53065003B57DB /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		026395651FC04D8000D91F9D /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
+		0263956B1FC0544C00D91F9D /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Map.storyboard; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		02E68A761FB53065003B57DB /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E68A791FB53065003B57DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02E68A7B1FB53065003B57DB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +51,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		026395671FC0523E00D91F9D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				02E68A821FB53065003B57DB /* LaunchScreen.storyboard */,
+				02E68A7D1FB53065003B57DB /* Main.storyboard */,
+				0263956B1FC0544C00D91F9D /* Map.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		02E68A6D1FB53065003B57DB = {
 			isa = PBXGroup;
 			children = (
@@ -73,9 +85,8 @@
 				026395641FC04D6300D91F9D /* Extensions */,
 				02E68A8B1FB531F3003B57DB /* ViewControllers */,
 				02E68A8E1FB53CF7003B57DB /* Networking */,
-				02E68A7D1FB53065003B57DB /* Main.storyboard */,
+				026395671FC0523E00D91F9D /* UI */,
 				02E68A801FB53065003B57DB /* Assets.xcassets */,
-				02E68A821FB53065003B57DB /* LaunchScreen.storyboard */,
 				02E68A851FB53065003B57DB /* Info.plist */,
 			);
 			path = OnTheMap;
@@ -159,6 +170,7 @@
 				02E68A841FB53065003B57DB /* LaunchScreen.storyboard in Resources */,
 				02E68A811FB53065003B57DB /* Assets.xcassets in Resources */,
 				02E68A7F1FB53065003B57DB /* Main.storyboard in Resources */,
+				0263956C1FC0544C00D91F9D /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
