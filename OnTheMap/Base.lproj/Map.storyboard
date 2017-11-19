@@ -14,7 +14,7 @@
         <!--Map-->
         <scene sceneID="8KJ-Bd-TVW">
             <objects>
-                <viewController id="Q9b-ob-tsX" sceneMemberID="viewController">
+                <viewController id="Q9b-ob-tsX" customClass="MapViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NPi-r0-n1r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

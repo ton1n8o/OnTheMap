@@ -10,11 +10,7 @@ import Foundation
 
 struct Constants {
     
-    struct Udacity {
-        static let APIScheme = "https"
-        static let APIHost = "www.udacity.com"
-        static let APIPath = "/api"
-    }
+    // MARK: - Commons
     
     struct HTTPHeaderField {
         static let accept = "Accept"
@@ -25,18 +21,45 @@ struct Constants {
         static let json = "application/json"
     }
     
-    // MARK: Methods
-    struct Methods {
-        // MARK: Authentication
+    // MARK: - Udacity API
+    
+    struct Udacity {
+        static let APIScheme = "https"
+        static let APIHost = "www.udacity.com"
+        static let APIPath = "/api"
+    }
+    
+    struct UdacityMethods {
         static let Authentication = "/session"
     }
     
-    // MARK: JSON Response Keys
-    struct JSONResponseKeys {
-        // MARK: Account
+    struct UdacityJSONResponseKeys {
         static let Account = "account"
         static let Registered = "registered"
         static let Session = "session"
         static let SessionID = "id"
     }
+    
+    // MARK: - Parse API
+    
+    struct Parse {
+        static let APIScheme = "https"
+        static let APIHost = "parse.udacity.com"
+        static let APIPath = "/parse"
+    }
+    
+    struct ParseMethods {
+        static let StudentLocation = "/classes/StudentLocation"
+    }
+    
+    struct ParseParameterKeys {
+        static let APIKey = "X-Parse-REST-API-Key"
+        static let ApplicationID = "X-Parse-Application-Id"
+    }
+    
+    struct ParseParametersValues {
+        static let APIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+        static let ApplicationID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+    }
+    
 }

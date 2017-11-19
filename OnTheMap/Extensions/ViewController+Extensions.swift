@@ -10,6 +10,19 @@ import UIKit
 
 extension UIViewController {
     
+    var appDelegate: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    var studentLocations: [StudentLocation] {
+        get {
+            return appDelegate.studentLocations
+        }
+        set {
+            appDelegate.studentLocations = newValue
+        }
+    }
+    
     func showInfo(withTitle: String = "Info", withMessage: String) {
         let ac = UIAlertController(title: withTitle, message: withMessage, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
