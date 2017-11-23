@@ -62,7 +62,7 @@
         <!--List-->
         <scene sceneID="Jld-A0-Kbj">
             <objects>
-                <viewController id="3fe-Ot-X1P" sceneMemberID="viewController">
+                <viewController id="3fe-Ot-X1P" customClass="ListViewController" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I7i-KC-S74">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,6 +82,45 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Cf2-kh-ixh">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" id="CPV-6L-kKm" customClass="LocationCell" customModule="OnTheMap" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CPV-6L-kKm" id="9eA-WQ-eXP">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="95G-ch-axj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JmJ-QD-F22">
+                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="43.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="45" id="igG-ZA-h3Q"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6W-cW-hdf">
+                                                            <rect key="frame" x="53" y="0.0" width="322" height="43.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="95G-ch-axj" firstAttribute="top" secondItem="9eA-WQ-eXP" secondAttribute="top" id="26b-fl-ejr"/>
+                                                <constraint firstItem="95G-ch-axj" firstAttribute="leading" secondItem="9eA-WQ-eXP" secondAttribute="leading" id="KX6-0S-2G8"/>
+                                                <constraint firstAttribute="trailing" secondItem="95G-ch-axj" secondAttribute="trailing" id="MyX-Xd-uqe"/>
+                                                <constraint firstAttribute="bottom" secondItem="95G-ch-axj" secondAttribute="bottom" id="bbU-pb-jGg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="iconImage" destination="JmJ-QD-F22" id="hLi-m3-4lL"/>
+                                            <outlet property="labelName" destination="f6W-cW-hdf" id="T0U-je-GEW"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,8 +136,13 @@
                         <viewLayoutGuide key="safeArea" id="2jW-9r-dyL"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="icon_listview-deselected" id="8C3-B5-uTM"/>
+                    <connections>
+                        <outlet property="dataProvider" destination="9Fu-sz-ly6" id="hau-a6-2H5"/>
+                        <outlet property="tableView" destination="Cf2-kh-ixh" id="AMB-0Z-YaY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1H-7u-ZcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="9Fu-sz-ly6" customClass="DataProvider" customModule="OnTheMap" customModuleProvider="target"/>
             </objects>
             <point key="canvasLocation" x="230" y="-2234"/>
         </scene>

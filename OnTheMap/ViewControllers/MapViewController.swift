@@ -28,7 +28,9 @@ class MapViewController: UIViewController {
                 return
             }
             print("Locations: \(locations.count)")
-            self.appDelegate.locations = locations
+            self.performUIUpdatesOnMain {
+                self.appDelegate.locations = locations
+            }
             self.showLocations(locations: locations)
         }
     }
