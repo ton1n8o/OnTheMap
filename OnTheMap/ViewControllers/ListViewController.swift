@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: BaseViewController {
     
     // MARK: - Outlets
     

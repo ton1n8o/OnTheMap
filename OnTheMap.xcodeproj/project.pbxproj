@@ -22,6 +22,7 @@
 		02EEDF591FC6F4160043FFD1 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EEDF581FC6F4160043FFD1 /* ListViewController.swift */; };
 		02EEDF5B1FC6F5860043FFD1 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EEDF5A1FC6F5860043FFD1 /* DataProvider.swift */; };
 		02EEDF5E1FC6F9400043FFD1 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EEDF5D1FC6F9400043FFD1 /* LocationCell.swift */; };
+		02EEDF601FC708730043FFD1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02EEDF5F1FC708730043FFD1 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		02EEDF581FC6F4160043FFD1 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		02EEDF5A1FC6F5860043FFD1 /* DataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataProvider.swift; sourceTree = "<group>"; };
 		02EEDF5D1FC6F9400043FFD1 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		02EEDF5F1FC708730043FFD1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				02E68A7B1FB53065003B57DB /* LoginViewController.swift */,
 				02EEDF581FC6F4160043FFD1 /* ListViewController.swift */,
 				028813D11FC1C38D0049201C /* MapViewController.swift */,
+				02EEDF5F1FC708730043FFD1 /* BaseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				02EEDF5B1FC6F5860043FFD1 /* DataProvider.swift in Sources */,
 				02EEDF571FC6E20D0043FFD1 /* StudentsLocation.swift in Sources */,
 				028813D61FC1C5010049201C /* Location.swift in Sources */,
+				02EEDF601FC708730043FFD1 /* BaseViewController.swift in Sources */,
 				026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */,
 				02EEDF5E1FC6F9400043FFD1 /* LocationCell.swift in Sources */,
 				02EEDF591FC6F4160043FFD1 /* ListViewController.swift in Sources */,

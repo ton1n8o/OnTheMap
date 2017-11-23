@@ -14,9 +14,11 @@ class LocationCell: UITableViewCell {
     
     @IBOutlet weak var iconImage: UIImageView!
     @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelUrl: UILabel!
     
     func configWith(location: Location) {
         labelName.text = location.locationLabel
+        labelUrl.text = location.mediaURL ?? ""
     }
 
 }

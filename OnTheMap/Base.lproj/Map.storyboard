@@ -33,10 +33,22 @@
                         <viewLayoutGuide key="safeArea" id="uFF-yC-guE"/>
                     </view>
                     <navigationItem key="navigationItem" title="On The Map" id="dQf-hm-tH8">
-                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="AnQ-6X-OIh"/>
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="AnQ-6X-OIh">
+                            <connections>
+                                <action selector="logout:" destination="Q9b-ob-tsX" id="NEH-HE-ha8"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="icon_addpin" style="plain" id="ZBN-0q-ufq"/>
-                            <barButtonItem title="Item" image="icon_refresh" id="HmN-Ch-ITE"/>
+                            <barButtonItem image="icon_addpin" style="plain" id="ZBN-0q-ufq">
+                                <connections>
+                                    <action selector="updateLocation:" destination="Q9b-ob-tsX" id="pJk-Pm-oRp"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="icon_refresh" id="HmN-Ch-ITE">
+                                <connections>
+                                    <action selector="reload:" destination="Q9b-ob-tsX" id="nfw-67-cp1"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -75,12 +87,23 @@
                                                                 <constraint firstAttribute="width" constant="45" id="igG-ZA-h3Q"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6W-cW-hdf">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="ksi-FH-64I">
                                                             <rect key="frame" x="53" y="0.0" width="322" height="59.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6W-cW-hdf">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="322" height="27.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eP7-y1-UwX">
+                                                                    <rect key="frame" x="0.0" y="30.5" width="322" height="29"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
@@ -94,6 +117,7 @@
                                         <connections>
                                             <outlet property="iconImage" destination="JmJ-QD-F22" id="hLi-m3-4lL"/>
                                             <outlet property="labelName" destination="f6W-cW-hdf" id="T0U-je-GEW"/>
+                                            <outlet property="labelUrl" destination="eP7-y1-UwX" id="zfd-yE-zVV"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -101,19 +125,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="2jW-9r-dyL" firstAttribute="bottom" secondItem="Cf2-kh-ixh" secondAttribute="bottom" id="4Gk-3D-9SH"/>
                             <constraint firstItem="2jW-9r-dyL" firstAttribute="trailing" secondItem="Cf2-kh-ixh" secondAttribute="trailing" id="7in-qu-Hxt"/>
                             <constraint firstItem="Cf2-kh-ixh" firstAttribute="leading" secondItem="2jW-9r-dyL" secondAttribute="leading" id="Hbg-ho-Bz4"/>
                             <constraint firstItem="Cf2-kh-ixh" firstAttribute="top" secondItem="2jW-9r-dyL" secondAttribute="top" id="c4h-C9-vKc"/>
+                            <constraint firstItem="2jW-9r-dyL" firstAttribute="bottom" secondItem="Cf2-kh-ixh" secondAttribute="bottom" id="tNq-e7-N1g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2jW-9r-dyL"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="On The Map" id="zh7-hx-KEh">
-                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="b8U-jt-jDW"/>
+                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="b8U-jt-jDW">
+                            <connections>
+                                <action selector="logout:" destination="3fe-Ot-X1P" id="VPs-dd-Etr"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem image="icon_addpin" id="h9j-pN-cVy"/>
-                            <barButtonItem title="Item" image="icon_refresh" id="whv-co-374"/>
+                            <barButtonItem image="icon_addpin" id="h9j-pN-cVy">
+                                <connections>
+                                    <action selector="updateLocation:" destination="3fe-Ot-X1P" id="v7d-Oz-cID"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="icon_refresh" id="whv-co-374">
+                                <connections>
+                                    <action selector="reload:" destination="3fe-Ot-X1P" id="2Xf-C1-LfP"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -125,7 +161,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1H-7u-ZcU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <customObject id="9Fu-sz-ly6" customClass="DataProvider" customModule="OnTheMap" customModuleProvider="target"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="-2235"/>
+            <point key="canvasLocation" x="1120.8" y="-2235.832083958021"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="04Z-Vf-m8z">
