@@ -16,7 +16,7 @@ class LocationCell: UITableViewCell {
     @IBOutlet weak var labelName: UILabel!
     
     func configWith(location: Location) {
-        labelName.text = location.firstName ?? location.lastName
+        labelName.text = location.locationLabel
     }
 
 }

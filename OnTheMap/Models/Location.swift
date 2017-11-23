@@ -21,4 +21,12 @@ struct Location: Codable {
     let createdAt: String
     let updatedAt: String
     
+    var locationLabel: String {
+        var name = (firstName ?? lastName)
+        if name == nil {
+           name = "No name provided"
+        }
+        return name!
+    }
+    
 }

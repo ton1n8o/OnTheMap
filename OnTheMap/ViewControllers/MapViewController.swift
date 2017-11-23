@@ -41,7 +41,7 @@ class MapViewController: UIViewController {
         for location in locations {
             if let coordinate = extractCoordinate(location: location) {
                 let annotation = MKPointAnnotation()
-                annotation.title = location.firstName ?? location.lastName
+                annotation.title = location.locationLabel
                 annotation.subtitle = location.mediaURL ?? ""
                 annotation.coordinate = coordinate
                 mapView.addAnnotation(annotation)
