@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var studentLocations = [Location]()
+    var locations = [Location]()
 
     var window: UIWindow?
 

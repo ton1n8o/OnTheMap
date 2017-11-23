@@ -14,12 +14,12 @@ extension UIViewController {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
-    var studentLocations: [Location] {
+    var locations: [Location] {
         get {
-            return appDelegate.studentLocations
+            return appDelegate.locations
         }
         set {
-            appDelegate.studentLocations = newValue
+            appDelegate.locations = newValue
         }
     }
     

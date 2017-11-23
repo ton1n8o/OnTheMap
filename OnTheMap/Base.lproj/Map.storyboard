@@ -51,6 +51,9 @@
                         <viewLayoutGuide key="safeArea" id="uFF-yC-guE"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="icon_mapview-deselected" id="vhe-rp-6jx"/>
+                    <connections>
+                        <outlet property="mapView" destination="E52-r5-7eQ" id="jqs-nw-2Cm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9au-ML-flP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
