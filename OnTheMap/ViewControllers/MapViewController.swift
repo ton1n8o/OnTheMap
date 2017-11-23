@@ -14,9 +14,9 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:]) { (dataObject, error) in
+        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:]) { (studentsLocation, error) in
             if error == nil {
-                print(dataObject!)
+                print(studentsLocation!)
             }
         }
     }

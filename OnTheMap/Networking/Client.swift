@@ -67,7 +67,7 @@ class Client: NSObject {
     func taskForGETMethod(
         _ method: String,
         parameters: [String:AnyObject],
-        completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        completionHandlerForGET: @escaping (_ result: StudentsLocation?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: .parse))
@@ -102,7 +102,15 @@ class Client: NSObject {
             }
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandlerForGET)
+            do {
+                let jsonDecoder = JSONDecoder()
+                let studentsLocation = try jsonDecoder.decode(StudentsLocation.self, from: data)
+                completionHandlerForGET(studentsLocation, nil)
+            } catch {
+                print(error)
+                sendError("Could not parse the data as JSON: \(error.localizedDescription)")
+            }
+            
         }
         
         /* 7. Start the request */

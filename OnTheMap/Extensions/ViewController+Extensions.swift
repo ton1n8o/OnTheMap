@@ -14,7 +14,7 @@ extension UIViewController {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
-    var studentLocations: [StudentLocation] {
+    var studentLocations: [Location] {
         get {
             return appDelegate.studentLocations
         }
