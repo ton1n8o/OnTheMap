@@ -10,6 +10,8 @@ import UIKit
 
 class BaseViewController: UIViewController {
 
+    // MARK: - UIViewController lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

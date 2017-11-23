@@ -8,8 +8,13 @@
 
 import UIKit
 
+protocol LocationSelectionDelegate: class {
+    func didSelectLocation(location: Location)
+}
+
 class DataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     
+    weak var delegate: LocationSelectionDelegate?
     var locations = [Location]()
     
     // MARK: - UITableViewDataSource
@@ -28,6 +33,10 @@ class DataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectLocation(location: locations[indexPath.row])
     }
 
 }

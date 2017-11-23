@@ -44,7 +44,6 @@ class MapViewController: BaseViewController {
                 annotation.title = location.locationLabel
                 annotation.subtitle = location.mediaURL ?? ""
                 annotation.coordinate = coordinate
-                //annotation.
                 mapView.addAnnotation(annotation)
             }
         }
