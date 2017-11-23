@@ -15,6 +15,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userEmail: UITextField!
     @IBOutlet weak var userPassword: UITextField!
     @IBOutlet weak var buttonLogin: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +29,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginPressed(_ sender: AnyObject) {
         
+        activityIndicator.startAnimating()
         enableUI(false)
         
         guard  let email = userEmail.text, !email.isEmpty else {
+            activityIndicator.stopAnimating()
             enableUI(true)
             showInfo(withTitle: "Field required", withMessage: "Please fill in your email.")
             return
         }
         guard  let password = userPassword.text, !password.isEmpty else {
+            activityIndicator.stopAnimating()
             enableUI(true)
             showInfo(withTitle: "Field required", withMessage: "Please fill in your password.")
             return
@@ -49,6 +53,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.showInfo(withTitle: "Login falied", withMessage: errorMessage ?? "Error while performing login.")
                 }
             }
+            self.activityIndicator.stopAnimating()
             self.enableUI(true)
         }
     }
