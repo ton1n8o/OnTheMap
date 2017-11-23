@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Outlets
     
@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userEmail.delegate = self
+        userPassword.delegate = self
         userEmail.text = "antoniocarlos.dev@gmail.com"
         userPassword.text = ""
     }
@@ -59,6 +61,13 @@ class LoginViewController: UIViewController {
             self.userPassword.isEnabled = enable
             self.buttonLogin.isEnabled = enable
         }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }
