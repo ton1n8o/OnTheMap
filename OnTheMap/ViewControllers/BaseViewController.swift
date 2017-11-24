@@ -27,7 +27,9 @@ class BaseViewController: UIViewController {
     }
     
     @IBAction func updateLocation(_ sender: Any) {
+        // check for location first
         
+        // open post view
     }
 
 }
