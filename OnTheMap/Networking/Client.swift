@@ -37,7 +37,7 @@ class Client: NSObject {
         _ = taskForPOSTMethod(Constants.UdacityMethods.Authentication, parameters: [:], jsonBody: jsonBody, completionHandlerForPOST: { (results, error) in
             if let error = error {
                 print(error)
-                completionHandlerForAuth(false, "Login Failed.")
+                completionHandlerForAuth(false, error.localizedDescription)
             } else {
                 if let account = results?[Constants.UdacityJSONResponseKeys.Account] as? [String: AnyObject] {
                     guard let registered = account[Constants.UdacityJSONResponseKeys.Registered] as? Bool, registered == true else {
@@ -85,7 +85,7 @@ class Client: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
+                sendError("There was an error with your request: \(error!.localizedDescription)")
                 return
             }
             
@@ -144,14 +144,23 @@ class Client: NSObject {
             
             /* GUARD: Was there an error? */
             guard (error == nil) else {
-                sendError("There was an error with your request: \(error!)")
+                sendError("There was an error with your request: \(error!.localizedDescription)")
                 return
             }
             
             /* GUARD: Did we get a successful 2XX response? */
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-                sendError("Your request returned a status code other than 2xx!")
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                sendError("Request did not return a valid response.")
                 return
+            }
+            
+            switch (statusCode) {
+            case 403:
+                sendError("Please check your credentials and try again.")
+            case 200 ..< 299:
+                break
+            default:
+                sendError("Your request returned a status code other than 2xx!")
             }
             
             /* GUARD: Was there any data returned? */

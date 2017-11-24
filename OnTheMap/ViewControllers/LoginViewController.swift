@@ -53,7 +53,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.showInfo(withTitle: "Login falied", withMessage: errorMessage ?? "Error while performing login.")
                 }
             }
-            self.activityIndicator.stopAnimating()
+            self.performUIUpdatesOnMain {
+                self.activityIndicator.stopAnimating()
+            }
             self.enableUI(true)
         }
     }
