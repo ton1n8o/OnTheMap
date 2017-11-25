@@ -24,9 +24,22 @@ extension UIViewController {
     }
     
     func showInfo(withTitle: String = "Info", withMessage: String) {
-        let ac = UIAlertController(title: withTitle, message: withMessage, preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+        performUIUpdatesOnMain {
+            let ac = UIAlertController(title: withTitle, message: withMessage, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true)
+        }
+    }
+    
+    func showConfirmationAlert(withMessage: String, actionTitle: String, action: @escaping () -> Void) {
+        performUIUpdatesOnMain {
+            let ac = UIAlertController(title: nil, message: withMessage, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            ac.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { (alertAction) in
+                action()
+            }))
+            self.present(ac, animated: true)
+        }
     }
     
     func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {

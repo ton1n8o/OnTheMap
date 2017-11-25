@@ -17,7 +17,7 @@ class Client: NSObject {
     
     // authentication state
     var sessionID: String? = nil
-    var userKey: String? = nil
+    var userKey = ""
     
     // MARK: Initializers
     override init() {
@@ -33,41 +33,6 @@ class Client: NSObject {
         return Singleton.shared
     }
     
-    func authenticateWith(userEmail: String, andPassword: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
-        let jsonBody = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(andPassword)\"}}"
-        _ = taskForPOSTMethod(Constants.UdacityMethods.Authentication, parameters: [:], jsonBody: jsonBody, completionHandlerForPOST: { (results, error) in
-            if let error = error {
-                print(error)
-                completionHandlerForAuth(false, error.localizedDescription)
-            } else {
-                if let account = results?[Constants.UdacityJSONResponseKeys.Account] as? [String: AnyObject] {
-                    guard let registered = account[Constants.UdacityJSONResponseKeys.Registered] as? Bool, registered == true else {
-                        completionHandlerForAuth(false, "Login Failed, user not registered.")
-                        return
-                    }
-                    guard let userKey = account[Constants.UdacityJSONResponseKeys.UserKey] as? String else {
-                        completionHandlerForAuth(false, "Login Failed, user not registered.")
-                        return
-                    }
-                    guard let session = results?[Constants.UdacityJSONResponseKeys.Session] as? [String: AnyObject] else {
-                        completionHandlerForAuth(false, "Login Failed, no session to the user credentials provided.")
-                        return
-                    }
-                    guard let sessionID = session[Constants.UdacityJSONResponseKeys.SessionID] as? String else {
-                        completionHandlerForAuth(false, "Login Failed, no session ID to the user credentials provided.")
-                        return
-                    }
-                    self.userKey = userKey
-                    self.sessionID = sessionID
-                    completionHandlerForAuth(true, nil)
-                } else {
-                    self.sessionID = nil
-                    completionHandlerForAuth(false, "Login Failed, user not registered.")
-                }
-            }
-        })
-    }
-    
     // MARK: GET
     
     func taskForGETMethod(
@@ -80,10 +45,13 @@ class Client: NSObject {
         request.addValue(Constants.ParseParametersValues.APIKey, forHTTPHeaderField: Constants.ParseParameterKeys.APIKey)
         request.addValue(Constants.ParseParametersValues.ApplicationID, forHTTPHeaderField: Constants.ParseParameterKeys.ApplicationID)
         
+        showActivityIndicator(true)
+        
         /* 4. Make the request */
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(_ error: String) {
+                self.showActivityIndicator(false)
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForGET(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
@@ -106,9 +74,10 @@ class Client: NSObject {
                 sendError("No data was returned by the request!")
                 return
             }
-            
+                        
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             do {
+                self.showActivityIndicator(false)
                 let jsonDecoder = JSONDecoder()
                 let studentsLocation = try jsonDecoder.decode(StudentsLocation.self, from: data)
                 completionHandlerForGET(studentsLocation, nil)
@@ -140,9 +109,12 @@ class Client: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
+        showActivityIndicator(true)
+        
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(_ error: String) {
+                self.showActivityIndicator(false)
                 print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
@@ -178,6 +150,8 @@ class Client: NSObject {
             // skipping the first 5 characters for Udacity API calls
             let range = Range(5..<data.count)
             let newData = data.subdata(in: range)
+            
+            self.showActivityIndicator(false)
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
             self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForPOST)
@@ -224,6 +198,15 @@ class Client: NSObject {
         }
         
         completionHandlerForConvertData(parsedResult, nil)
+    }
+    
+    /// Show or Hide Network activity indicator.
+    ///
+    /// - Parameter show: use either **true** to show or **false** to hide it
+    private func showActivityIndicator(_ show: Bool) {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = show
+        }
     }
     
 }

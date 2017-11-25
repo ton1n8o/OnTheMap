@@ -56,6 +56,7 @@ struct Constants {
     struct ParseParameterKeys {
         static let APIKey = "X-Parse-REST-API-Key"
         static let ApplicationID = "X-Parse-Application-Id"
+        static let Where = "where"
     }
     
     struct ParseParametersValues {

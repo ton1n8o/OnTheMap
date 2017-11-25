@@ -28,8 +28,24 @@ class BaseViewController: UIViewController {
     
     @IBAction func updateLocation(_ sender: Any) {
         // check for location first
-        
-        // open post view
+        Client.shared().studentLocation { (studentLocation, error) in
+            if let error = error {
+                self.showInfo(withTitle: "Error fetching student location", withMessage: error.localizedDescription)
+            }
+            
+            if let locations = studentLocation?.locations, !locations.isEmpty {
+                let msg = "User \"\(locations.first!.locationLabel)\" has already posted a Student Location. Whould you like to Overwrite it?"
+                self.showConfirmationAlert(withMessage: msg, actionTitle: "Overwrite", action: {
+                    self.showPostingView()
+                })
+            } else {
+                self.showPostingView()
+            }
+        }
+    }
+    
+    private func showPostingView() {
+        print("show posting view")
     }
 
 }
