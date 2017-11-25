@@ -36,6 +36,7 @@ struct Constants {
     struct UdacityJSONResponseKeys {
         static let Account = "account"
         static let Registered = "registered"
+        static let UserKey = "key"
         static let Session = "session"
         static let SessionID = "id"
     }

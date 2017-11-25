@@ -17,6 +17,7 @@ class Client: NSObject {
     
     // authentication state
     var sessionID: String? = nil
+    var userKey: String? = nil
     
     // MARK: Initializers
     override init() {
@@ -44,6 +45,10 @@ class Client: NSObject {
                         completionHandlerForAuth(false, "Login Failed, user not registered.")
                         return
                     }
+                    guard let userKey = account[Constants.UdacityJSONResponseKeys.UserKey] as? String else {
+                        completionHandlerForAuth(false, "Login Failed, user not registered.")
+                        return
+                    }
                     guard let session = results?[Constants.UdacityJSONResponseKeys.Session] as? [String: AnyObject] else {
                         completionHandlerForAuth(false, "Login Failed, no session to the user credentials provided.")
                         return
@@ -52,6 +57,7 @@ class Client: NSObject {
                         completionHandlerForAuth(false, "Login Failed, no session ID to the user credentials provided.")
                         return
                     }
+                    self.userKey = userKey
                     self.sessionID = sessionID
                     completionHandlerForAuth(true, nil)
                 } else {
