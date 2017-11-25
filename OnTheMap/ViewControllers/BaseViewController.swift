@@ -8,8 +8,10 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UITabBarController {
 
+    @IBOutlet weak var buttonPostLocation: UIBarButtonItem!
+    
     // MARK: - UIViewController lifecycle
     
     override func viewDidLoad() {
@@ -27,12 +29,11 @@ class BaseViewController: UIViewController {
     }
     
     @IBAction func updateLocation(_ sender: Any) {
-        // check for location first
+        buttonPostLocation.isEnabled = false
         Client.shared().studentLocation { (studentLocation, error) in
             if let error = error {
                 self.showInfo(withTitle: "Error fetching student location", withMessage: error.localizedDescription)
             }
-            
             if let locations = studentLocation?.locations, !locations.isEmpty {
                 let msg = "User \"\(locations.first!.locationLabel)\" has already posted a Student Location. Whould you like to Overwrite it?"
                 self.showConfirmationAlert(withMessage: msg, actionTitle: "Overwrite", action: {
@@ -41,11 +42,17 @@ class BaseViewController: UIViewController {
             } else {
                 self.showPostingView()
             }
+            self.performUIUpdatesOnMain {
+                self.buttonPostLocation.isEnabled = true
+            }
         }
     }
+
+    // MARK: - Helpers
     
     private func showPostingView() {
-        print("show posting view")
+        let postingView = storyboard?.instantiateViewController(withIdentifier: "PostingView") as! PostingView
+        navigationController?.pushViewController(postingView, animated: true)
     }
 
 }

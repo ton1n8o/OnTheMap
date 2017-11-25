@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0214C94C1FC99AF400991A99 /* ClientConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0214C94B1FC99AF400991A99 /* ClientConvenience.swift */; };
+		0214C94E1FC99FF200991A99 /* PostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0214C94D1FC99FF200991A99 /* PostingView.swift */; };
+		022E01211FC9AF3100512AD0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022E01201FC9AF3100512AD0 /* Extensions.swift */; };
 		026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 026395651FC04D8000D91F9D /* ViewController+Extensions.swift */; };
 		0263956C1FC0544C00D91F9D /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0263956B1FC0544C00D91F9D /* Map.storyboard */; };
 		028813D21FC1C38D0049201C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028813D11FC1C38D0049201C /* MapViewController.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		0214C94B1FC99AF400991A99 /* ClientConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientConvenience.swift; sourceTree = "<group>"; };
+		0214C94D1FC99FF200991A99 /* PostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingView.swift; sourceTree = "<group>"; };
+		022E01201FC9AF3100512AD0 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		026395651FC04D8000D91F9D /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
 		0263956B1FC0544C00D91F9D /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Map.storyboard; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		028813D11FC1C38D0049201C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				026395651FC04D8000D91F9D /* ViewController+Extensions.swift */,
+				022E01201FC9AF3100512AD0 /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 				02EEDF581FC6F4160043FFD1 /* ListViewController.swift */,
 				028813D11FC1C38D0049201C /* MapViewController.swift */,
 				02EEDF5F1FC708730043FFD1 /* BaseViewController.swift */,
+				0214C94D1FC99FF200991A99 /* PostingView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -230,6 +236,8 @@
 				026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */,
 				0214C94C1FC99AF400991A99 /* ClientConvenience.swift in Sources */,
 				02EEDF5E1FC6F9400043FFD1 /* LocationCell.swift in Sources */,
+				0214C94E1FC99FF200991A99 /* PostingView.swift in Sources */,
+				022E01211FC9AF3100512AD0 /* Extensions.swift in Sources */,
 				02EEDF591FC6F4160043FFD1 /* ListViewController.swift in Sources */,
 				02E68A7A1FB53065003B57DB /* AppDelegate.swift in Sources */,
 				02E68A901FB53D3B003B57DB /* Client.swift in Sources */,

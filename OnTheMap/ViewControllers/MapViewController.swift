@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: BaseViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Outlets
     

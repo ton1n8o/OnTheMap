@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: BaseViewController, LocationSelectionDelegate {
+class ListViewController: UIViewController, LocationSelectionDelegate {
     
     // MARK: - Outlets
     
