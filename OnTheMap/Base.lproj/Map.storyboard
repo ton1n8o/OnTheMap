@@ -257,7 +257,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <outlet property="buttonLogout" destination="b8U-jt-jDW" id="jOQ-Lo-owJ"/>
                         <outlet property="buttonPostLocation" destination="whv-co-374" id="uNL-NP-aNl"/>
+                        <outlet property="buttonPostReload" destination="j9v-Sx-4tS" id="U8T-YM-moj"/>
                         <segue destination="Q9b-ob-tsX" kind="relationship" relationship="viewControllers" id="lcq-rb-ylB"/>
                         <segue destination="3fe-Ot-X1P" kind="relationship" relationship="viewControllers" id="aiJ-Jn-rKc"/>
                     </connections>

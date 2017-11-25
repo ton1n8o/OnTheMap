@@ -11,6 +11,8 @@ import UIKit
 class BaseViewController: UITabBarController {
 
     @IBOutlet weak var buttonPostLocation: UIBarButtonItem!
+    @IBOutlet weak var buttonPostReload: UIBarButtonItem!
+    @IBOutlet weak var buttonLogout: UIBarButtonItem!
     
     // MARK: - UIViewController lifecycle
     
@@ -29,7 +31,7 @@ class BaseViewController: UITabBarController {
     }
     
     @IBAction func updateLocation(_ sender: Any) {
-        buttonPostLocation.isEnabled = false
+        enableControllers(false)
         Client.shared().studentLocation { (studentLocation, error) in
             if let error = error {
                 self.showInfo(withTitle: "Error fetching student location", withMessage: error.localizedDescription)
@@ -42,13 +44,19 @@ class BaseViewController: UITabBarController {
             } else {
                 self.showPostingView()
             }
-            self.performUIUpdatesOnMain {
-                self.buttonPostLocation.isEnabled = true
-            }
+            self.enableControllers(true)
         }
     }
 
     // MARK: - Helpers
+    
+    private func enableControllers(_ enable: Bool) {
+        performUIUpdatesOnMain {
+            self.buttonPostLocation.isEnabled = enable
+            self.buttonPostReload.isEnabled = enable
+            self.buttonLogout.isEnabled = enable
+        }
+    }
     
     private func showPostingView() {
         let postingView = storyboard?.instantiateViewController(withIdentifier: "PostingView") as! PostingView

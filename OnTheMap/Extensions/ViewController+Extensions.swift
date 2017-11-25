@@ -47,4 +47,12 @@ extension UIViewController {
             updates()
         }
     }
+    
+    func enableUI(views: UIControl..., enable: Bool) {
+        performUIUpdatesOnMain {
+            for view in views {
+                view.isEnabled = enable
+            }
+        }
+    }
 }

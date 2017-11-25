@@ -32,17 +32,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginPressed(_ sender: AnyObject) {
         
         activityIndicator.startAnimating()
-        enableUI(false)
+        enableControllers(false)
         
         guard  let email = userEmail.text, !email.isEmpty else {
             activityIndicator.stopAnimating()
-            enableUI(true)
+            enableControllers(true)
             showInfo(withTitle: "Field required", withMessage: "Please fill in your email.")
             return
         }
         guard  let password = userPassword.text, !password.isEmpty else {
             activityIndicator.stopAnimating()
-            enableUI(true)
+            enableControllers(true)
             showInfo(withTitle: "Field required", withMessage: "Please fill in your password.")
             return
         }
@@ -58,18 +58,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.performUIUpdatesOnMain {
                 self.activityIndicator.stopAnimating()
             }
-            self.enableUI(true)
+            self.enableControllers(true)
         }
     }
     
     // MARK: - Helpers
     
-    func enableUI(_ enable: Bool) {
-        performUIUpdatesOnMain {
-            self.userEmail.isEnabled = enable
-            self.userPassword.isEnabled = enable
-            self.buttonLogin.isEnabled = enable
-        }
+    private func enableControllers(_ enable: Bool) {
+        self.enableUI(views: userEmail, userPassword, buttonLogin, enable: enable)
     }
     
     // MARK: - UITextFieldDelegate
