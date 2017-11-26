@@ -99,15 +99,23 @@ class Client: NSObject {
     func taskForPOSTMethod(
         _ method                 : String,
         parameters               : [String:AnyObject],
+        requestHeaderParameters  : [String:AnyObject]? = nil,
         jsonBody                 : String,
+        apiType                  : APIType = .udacity,
         completionHandlerForPOST : @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
-        let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method))
+        let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: apiType))
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
+        
+        if let headersParam = requestHeaderParameters {
+            for (key, value) in headersParam {
+                request.addValue("\(value)", forHTTPHeaderField: key)
+            }
+        }
         
         showActivityIndicator(true)
         
@@ -148,8 +156,11 @@ class Client: NSObject {
             }
             
             // skipping the first 5 characters for Udacity API calls
-            let range = Range(5..<data.count)
-            let newData = data.subdata(in: range)
+            var newData = data
+            if apiType == .udacity {
+                let range = Range(5..<data.count)
+                newData = data.subdata(in: range)
+            }
             
             self.showActivityIndicator(false)
             

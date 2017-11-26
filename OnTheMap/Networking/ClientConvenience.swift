@@ -59,4 +59,18 @@ extension Client {
             }
         }
     }
+    
+    func postStudentLocation(location: StudentLocation, completionHandler: @escaping (_ result: StudentsLocation?, _ error: NSError?) -> Void) {
+        
+        let paramHeaders = [
+            Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
+            Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
+            ] as [String: AnyObject]
+        
+        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
+        
+        _ = taskForPOSTMethod(Constants.ParseMethods.StudentLocation, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse) { (data, error) in
+            
+        }
+    }
 }
