@@ -155,11 +155,11 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HI9-XI-pNh">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a Website" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JIJ-eR-3Zq">
                                         <rect key="frame" x="0.0" y="53" width="305" height="45"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="url"/>
+                                        <textInputTraits key="textInputTraits" textContentType="url"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1s-al-DcH">
                                         <rect key="frame" x="0.0" y="106" width="305" height="45"/>
@@ -167,6 +167,9 @@
                                         <state key="normal" title="FIND LOCATION">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="findLocation:" destination="j3y-dq-hhN" eventType="touchUpInside" id="uJe-nm-iVU"/>
+                                        </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dXk-R3-ROC">
                                         <rect key="frame" x="0.0" y="159" width="305" height="20"/>
@@ -180,8 +183,8 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="v1s-al-DcH" firstAttribute="height" secondItem="HI9-XI-pNh" secondAttribute="height" id="8Us-Tj-lsa"/>
-                                    <constraint firstItem="HI9-XI-pNh" firstAttribute="height" secondItem="WgL-8P-fOD" secondAttribute="height" id="HG1-sJ-Nbr"/>
+                                    <constraint firstItem="v1s-al-DcH" firstAttribute="height" secondItem="WgL-8P-fOD" secondAttribute="height" id="CsD-nK-atF"/>
+                                    <constraint firstItem="JIJ-eR-3Zq" firstAttribute="height" secondItem="WgL-8P-fOD" secondAttribute="height" id="bdz-YS-IKm"/>
                                 </constraints>
                             </stackView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_world" translatesAutoresizingMaskIntoConstraints="NO" id="BsH-yw-MXs">
@@ -204,7 +207,10 @@
                         <viewLayoutGuide key="safeArea" id="2bX-Tg-2JE"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="dXk-R3-ROC" id="l8X-mX-PJj"/>
                         <outlet property="buttonFindLocation" destination="v1s-al-DcH" id="hyJ-p1-SVl"/>
+                        <outlet property="textFieldLink" destination="JIJ-eR-3Zq" id="Uf6-vk-uyl"/>
+                        <outlet property="textFieldLocation" destination="WgL-8P-fOD" id="OeW-Ru-8jk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kq2-h9-iB8" userLabel="First Responder" sceneMemberID="firstResponder"/>

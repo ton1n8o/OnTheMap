@@ -114,6 +114,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="VoL-X0-iyh" id="z2r-a5-aeT"/>
                         <outlet property="buttonLogin" destination="Q3J-Ca-CtM" id="puo-GN-OSM"/>
+                        <outlet property="buttonSignUp" destination="AbA-Te-aIY" id="JFe-fw-YGn"/>
                         <outlet property="userEmail" destination="kn0-gC-vh0" id="RLa-DQ-1Pv"/>
                         <outlet property="userPassword" destination="BRp-Xa-YOb" id="YCZ-9b-TXT"/>
                         <segue destination="RsS-63-vOz" kind="showDetail" identifier="showMap" action="showViewController:sender:" id="EQv-Uz-De8"/>

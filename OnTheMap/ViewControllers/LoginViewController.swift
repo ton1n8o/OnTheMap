@@ -16,6 +16,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var userPassword: UITextField!
     @IBOutlet weak var buttonLogin: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var buttonSignUp: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +70,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Helpers
     
     private func enableControllers(_ enable: Bool) {
-        self.enableUI(views: userEmail, userPassword, buttonLogin, enable: enable)
+        self.enableUI(views: userEmail, userPassword, buttonLogin, buttonSignUp, enable: enable)
     }
     
     // MARK: - UITextFieldDelegate
