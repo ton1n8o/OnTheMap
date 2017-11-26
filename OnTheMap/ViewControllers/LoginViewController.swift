@@ -62,6 +62,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func signUpPressed(_ sender: AnyObject) {
+        openWithSafari("https://auth.udacity.com/sign-up")
+    }
+    
     // MARK: - Helpers
     
     private func enableControllers(_ enable: Bool) {

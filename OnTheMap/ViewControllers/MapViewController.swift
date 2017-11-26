@@ -81,20 +81,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            let app = UIApplication.shared
             guard let subtitle = view.annotation?.subtitle else  {
-                self.showInfo(withMessage: "Invalid link.")
+                self.showInfo(withMessage: "No link defined.")
                 return
             }
-            guard let mediaURL = subtitle else {
-                self.showInfo(withMessage: "Invalid link.")
+            guard let link = subtitle else {
+                self.showInfo(withMessage: "No link defined.")
                 return
             }
-            guard let url = URL(string: mediaURL) else {
-                self.showInfo(withMessage: "Invalid link.")
-                return
-            }
-            app.open(url, options: [:], completionHandler: nil)
+            openWithSafari(link)
         }
     }
     

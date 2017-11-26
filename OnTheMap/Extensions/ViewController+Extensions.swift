@@ -55,4 +55,15 @@ extension UIViewController {
             }
         }
     }
+    
+    /// Open the given URL using Safari web browser.
+    ///
+    /// - Parameter url: a valid URL.
+    func openWithSafari(_ url: String) {
+        guard let url = URL(string: url) else {
+            showInfo(withMessage: "Invalid link.")
+            return
+        }
+        UIApplication.shared.open(url, options: [:])
+    }
 }

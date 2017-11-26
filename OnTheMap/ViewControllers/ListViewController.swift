@@ -33,11 +33,7 @@ class ListViewController: UIViewController, LocationSelectionDelegate {
             showInfo(withMessage: "Invalid link.")
             return
         }
-        guard let url = URL(string: mediaURL) else {
-            showInfo(withMessage: "Invalid link.")
-            return
-        }
-        UIApplication.shared.open(url, options: [:])
+        openWithSafari(mediaURL)
     }
 
 }
