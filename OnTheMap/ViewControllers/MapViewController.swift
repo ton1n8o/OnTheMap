@@ -19,21 +19,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        
-        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:]) { (studentsLocation, error) in
-            if let error = error {
-                self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
-                return
-            }
-            guard let locations = studentsLocation?.locations else {
-                return
-            }
-            print("Locations: \(locations.count)")
-            self.performUIUpdatesOnMain {
-                self.appDelegate.locations = locations
-                self.showLocations(locations: locations)
-            }
-        }
+        loadUserInfo()
+        loadStudentsLocation()
     }
     
     // MARK: - Helpers
@@ -56,6 +43,35 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             return CLLocationCoordinate2DMake(lat, lon)
         }
         return nil
+    }
+    
+    private func loadUserInfo() {
+        _ = Client.shared().studentInfo(completionHandler: { (studentInfo, error) in
+            if let error = error {
+                self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
+                return
+            }
+            Client.shared().userName = studentInfo?.user.name ?? ""
+        })
+    }
+    
+    private func loadStudentsLocation() {
+        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
+            if let error = error {
+                self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
+                return
+            }
+            if let studentsLocation = Client.shared().parseStudentsLocation(data: data) {
+                let locations =  studentsLocation.locations
+                print("Locations: \(locations.count)")
+                self.performUIUpdatesOnMain {
+                    self.appDelegate.locations = locations
+                    self.showLocations(locations: locations)
+                }
+            } else {
+                self.showInfo(withTitle: "Error", withMessage: "Could not parse the data.")
+            }
+        }
     }
 
     // MARK: - MKMapViewDelegate

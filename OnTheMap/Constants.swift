@@ -31,6 +31,7 @@ struct Constants {
     
     struct UdacityMethods {
         static let Authentication = "/session"
+        static let Users = "/users"
     }
     
     struct UdacityJSONResponseKeys {

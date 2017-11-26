@@ -18,6 +18,7 @@ class Client: NSObject {
     // authentication state
     var sessionID: String? = nil
     var userKey = ""
+    var userName = ""
     
     // MARK: Initializers
     override init() {
@@ -36,14 +37,18 @@ class Client: NSObject {
     // MARK: GET
     
     func taskForGETMethod(
-        _ method: String,
-        parameters: [String:AnyObject],
-        completionHandlerForGET: @escaping (_ result: StudentsLocation?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        _ method               : String,
+        parameters             : [String:AnyObject],
+        apiType                : APIType = .udacity,
+        completionHandlerForGET: @escaping (_ result: Data?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         /* 2/3. Build the URL, Configure the request */
-        let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: .parse))
-        request.addValue(Constants.ParseParametersValues.APIKey, forHTTPHeaderField: Constants.ParseParameterKeys.APIKey)
-        request.addValue(Constants.ParseParametersValues.ApplicationID, forHTTPHeaderField: Constants.ParseParameterKeys.ApplicationID)
+        let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: apiType))
+        
+        if apiType == .parse {
+            request.addValue(Constants.ParseParametersValues.APIKey, forHTTPHeaderField: Constants.ParseParameterKeys.APIKey)
+            request.addValue(Constants.ParseParametersValues.ApplicationID, forHTTPHeaderField: Constants.ParseParameterKeys.ApplicationID)
+        }
         
         showActivityIndicator(true)
         
@@ -74,17 +79,18 @@ class Client: NSObject {
                 sendError("No data was returned by the request!")
                 return
             }
-                        
-            /* 5/6. Parse the data and use the data (happens in completion handler) */
-            do {
-                self.showActivityIndicator(false)
-                let jsonDecoder = JSONDecoder()
-                let studentsLocation = try jsonDecoder.decode(StudentsLocation.self, from: data)
-                completionHandlerForGET(studentsLocation, nil)
-            } catch {
-                print(error)
-                sendError("Could not parse the data as JSON: \(error.localizedDescription)")
+            
+            // skipping the first 5 characters for Udacity API calls
+            var newData = data
+            if apiType == .udacity {
+                let range = Range(5..<data.count)
+                newData = data.subdata(in: range)
             }
+            
+            self.showActivityIndicator(false)
+            
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            completionHandlerForGET(newData, nil)
             
         }
         

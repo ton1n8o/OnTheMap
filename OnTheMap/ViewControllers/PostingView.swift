@@ -34,6 +34,7 @@ class PostingView: UIViewController {
     
     @IBAction func findLocation(_ sender: Any) {
         textFieldLocation.text = "Uberlandia MG"
+        textFieldLink.text = "http://www.terra.com.br"
         
         let location = textFieldLocation.text!
         let link = textFieldLink.text!
@@ -73,6 +74,7 @@ class PostingView: UIViewController {
                 if let location = location {
                     let coordinate = location.coordinate
                     print("\(coordinate.latitude), \(coordinate.longitude)")
+                    
                 } else {
                     self.showInfo(withMessage: "No Matching Location Found")
                 }
