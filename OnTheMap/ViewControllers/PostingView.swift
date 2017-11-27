@@ -102,18 +102,24 @@ class PostingView: UIViewController {
         
         if studentLocationID == nil {
             // POST
-            
+            Client.shared().postStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                self.handleSyncLocationResponse(error: error)
+            })
         } else {
             // PUT
             Client.shared().updateStudentLocation(location: studentLocation, completionHandler: { (success, error) in
-                if let error = error {
-                    self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
-                } else {
-                    self.showInfo(withTitle: "Success", withMessage: "Student Location updated!")
-                }
-                self.enableControllers(true)
+                self.handleSyncLocationResponse(error: error)
             })
         }
+    }
+    
+    private func handleSyncLocationResponse(error: NSError?) {
+        if let error = error {
+            self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
+        } else {
+            self.showInfo(withTitle: "Success", withMessage: "Student Location updated!")
+        }
+        self.enableControllers(true)
     }
     
     private func enableControllers(_ enable: Bool) {

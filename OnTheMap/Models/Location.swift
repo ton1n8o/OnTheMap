@@ -22,11 +22,21 @@ struct Location: Codable {
     let updatedAt: String
     
     var locationLabel: String {
-        var name = (firstName ?? lastName)
-        if name == nil {
-           name = "No name provided"
+        var name = ""
+        if let firstName = firstName {
+            name = firstName
         }
-        return name!
+        if let lastName = lastName {
+            if name.isEmpty {
+                name = lastName
+            } else {
+                name += " \(lastName)"
+            }
+        }
+        if name.isEmpty {
+            name = "No name provided"
+        }
+        return name
     }
     
 }
