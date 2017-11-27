@@ -14,6 +14,7 @@
 		0263956C1FC0544C00D91F9D /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0263956B1FC0544C00D91F9D /* Map.storyboard */; };
 		028813D21FC1C38D0049201C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028813D11FC1C38D0049201C /* MapViewController.swift */; };
 		028813D61FC1C5010049201C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 028813D51FC1C5010049201C /* Location.swift */; };
+		029686DC1FCC643700CF60CD /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029686DB1FCC643700CF60CD /* UserSession.swift */; };
 		02B4E86F1FCB071E003BC5BF /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E86E1FCB071E003BC5BF /* StudentLocation.swift */; };
 		02B4E8711FCB149F003BC5BF /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E8701FCB149F003BC5BF /* StudentInfo.swift */; };
 		02B4E8731FCB14DD003BC5BF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E8721FCB14DD003BC5BF /* User.swift */; };
@@ -39,6 +40,7 @@
 		0263956B1FC0544C00D91F9D /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Map.storyboard; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		028813D11FC1C38D0049201C /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		028813D51FC1C5010049201C /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		029686DB1FCC643700CF60CD /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		02B4E86E1FCB071E003BC5BF /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		02B4E8701FCB149F003BC5BF /* StudentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 		02B4E8721FCB14DD003BC5BF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				02B4E86E1FCB071E003BC5BF /* StudentLocation.swift */,
 				02B4E8701FCB149F003BC5BF /* StudentInfo.swift */,
 				02B4E8721FCB14DD003BC5BF /* User.swift */,
+				029686DB1FCC643700CF60CD /* UserSession.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				026395661FC04D8000D91F9D /* ViewController+Extensions.swift in Sources */,
 				0214C94C1FC99AF400991A99 /* ClientConvenience.swift in Sources */,
 				02EEDF5E1FC6F9400043FFD1 /* LocationCell.swift in Sources */,
+				029686DC1FCC643700CF60CD /* UserSession.swift in Sources */,
 				0214C94E1FC99FF200991A99 /* PostingView.swift in Sources */,
 				022E01211FC9AF3100512AD0 /* Extensions.swift in Sources */,
 				02EEDF591FC6F4160043FFD1 /* ListViewController.swift in Sources */,

@@ -10,7 +10,8 @@ import Foundation
 
 struct StudentLocation: Codable {
     
-   // let uniqueKey: String
+    let locationID: String?
+    let uniqueKey: String
     let firstName: String
     let lastName: String
     let mapString: String

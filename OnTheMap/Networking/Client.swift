@@ -34,7 +34,7 @@ class Client: NSObject {
         return Singleton.shared
     }
     
-    // MARK: GET
+    // MARK: - GET
     
     func taskForGETMethod(
         _ method               : String,
@@ -100,7 +100,7 @@ class Client: NSObject {
         return task
     }
     
-    // MARK: POST
+    // MARK: - POST
     
     func taskForPOSTMethod(
         _ method                 : String,
@@ -108,7 +108,7 @@ class Client: NSObject {
         requestHeaderParameters  : [String:AnyObject]? = nil,
         jsonBody                 : String,
         apiType                  : APIType = .udacity,
-        completionHandlerForPOST : @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        completionHandlerForPOST : @escaping (_ result: Data?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
         let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: apiType))
         
@@ -171,7 +171,7 @@ class Client: NSObject {
             self.showActivityIndicator(false)
             
             /* 5/6. Parse the data and use the data (happens in completion handler) */
-            self.convertDataWithCompletionHandler(newData, completionHandlerForConvertData: completionHandlerForPOST)
+            completionHandlerForPOST(newData, nil)
             
         }
         task.resume()
@@ -179,7 +179,86 @@ class Client: NSObject {
         return task
     }
     
-    // MARK: Helpers
+    // MARK: - PUT
+    
+    func taskForPUTMethod(
+        _ method                 : String,
+        parameters               : [String:AnyObject],
+        requestHeaderParameters  : [String:AnyObject]? = nil,
+        jsonBody                 : String,
+        apiType                  : APIType = .udacity,
+        completionHandlerForPUT  : @escaping (_ result: Data?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+        
+        let request = NSMutableURLRequest(url: buildURLFromParameters(parameters, withPathExtension: method, apiType: apiType))
+        
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
+        
+        if let headersParam = requestHeaderParameters {
+            for (key, value) in headersParam {
+                request.addValue("\(value)", forHTTPHeaderField: key)
+            }
+        }
+        
+        showActivityIndicator(true)
+        
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            func sendError(_ error: String) {
+                self.showActivityIndicator(false)
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForPUT(nil, NSError(domain: "taskForPUTMethod", code: 1, userInfo: userInfo))
+            }
+            
+            /* GUARD: Was there an error? */
+            guard (error == nil) else {
+                sendError("There was an error with your request: \(error!.localizedDescription)")
+                return
+            }
+            
+            /* GUARD: Did we get a successful 2XX response? */
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
+                sendError("Request did not return a valid response.")
+                return
+            }
+            
+            switch (statusCode) {
+            case 403:
+                sendError("Please check your credentials and try again.")
+            case 200 ..< 299:
+                break
+            default:
+                sendError("Your request returned a status code other than 2xx!")
+            }
+            
+            /* GUARD: Was there any data returned? */
+            guard let data = data else {
+                sendError("No data was returned by the request!")
+                return
+            }
+            
+            // skipping the first 5 characters for Udacity API calls
+            var newData = data
+            if apiType == .udacity {
+                let range = Range(5..<data.count)
+                newData = data.subdata(in: range)
+            }
+            
+            self.showActivityIndicator(false)
+            
+            /* 5/6. Parse the data and use the data (happens in completion handler) */
+            completionHandlerForPUT(newData, nil)
+            
+        }
+        task.resume()
+        
+        return task
+    }
+    
+    // MARK: - Helpers
     
     enum APIType {
         case udacity

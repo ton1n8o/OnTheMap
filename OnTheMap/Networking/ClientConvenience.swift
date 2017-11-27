@@ -12,34 +12,28 @@ extension Client {
     
     func authenticateWith(userEmail: String, andPassword: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         let jsonBody = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(andPassword)\"}}"
-        _ = taskForPOSTMethod(Constants.UdacityMethods.Authentication, parameters: [:], jsonBody: jsonBody, completionHandlerForPOST: { (results, error) in
+        _ = taskForPOSTMethod(Constants.UdacityMethods.Authentication, parameters: [:], jsonBody: jsonBody, completionHandlerForPOST: { (data, error) in
             if let error = error {
                 print(error)
                 completionHandlerForAuth(false, error.localizedDescription)
             } else {
-                if let account = results?[Constants.UdacityJSONResponseKeys.Account] as? [String: AnyObject] {
-                    guard let registered = account[Constants.UdacityJSONResponseKeys.Registered] as? Bool, registered == true else {
+                
+                let userSessionData = self.parseSession(data: data)
+                if let sessionData = userSessionData.0 {
+                    guard let account = sessionData.account, account.registered == true else {
                         completionHandlerForAuth(false, "Login Failed, user not registered.")
                         return
                     }
-                    guard let userKey = account[Constants.UdacityJSONResponseKeys.UserKey] as? String else {
-                        completionHandlerForAuth(false, "Login Failed, user not registered.")
-                        return
-                    }
-                    guard let session = results?[Constants.UdacityJSONResponseKeys.Session] as? [String: AnyObject] else {
+                    guard let userSession = sessionData.session else {
                         completionHandlerForAuth(false, "Login Failed, no session to the user credentials provided.")
                         return
                     }
-                    guard let sessionID = session[Constants.UdacityJSONResponseKeys.SessionID] as? String else {
-                        completionHandlerForAuth(false, "Login Failed, no session ID to the user credentials provided.")
-                        return
-                    }
-                    self.userKey = userKey
-                    self.sessionID = sessionID
+                    self.userKey = account.key
+                    self.sessionID = userSession.id
                     completionHandlerForAuth(true, nil)
                 } else {
+                    completionHandlerForAuth(false, userSessionData.1!.localizedDescription)
                     self.sessionID = nil
-                    completionHandlerForAuth(false, "Login Failed, user not registered.")
                 }
             }
         })
@@ -77,18 +71,84 @@ extension Client {
         }
     }
     
-    func postStudentLocation(location: StudentLocation, completionHandler: @escaping (_ result: StudentsLocation?, _ error: NSError?) -> Void) {
+    func postStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
-//        let paramHeaders = [
-//            Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
-//            Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
-//            ] as [String: AnyObject]
+        let paramHeaders = [
+            Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
+            Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
+            ] as [String: AnyObject]
         
-//        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
+        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
         
-//        _ = taskForPOSTMethod(Constants.ParseMethods.StudentLocation, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse) { (data, error) in
-//            
-//        }
+        _ = taskForPOSTMethod(Constants.ParseMethods.StudentLocation, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse) { (data, error) in
+            if let error = error {
+                print(error)
+                completionHandler(false, error)
+            } else {
+                
+                struct Response: Codable {
+                    let createdAt: String?
+                    let objectId: String?
+                }
+                
+                var response: Response!
+                do {
+                    if let data = data {
+                        let jsonDecoder = JSONDecoder()
+                        response = try jsonDecoder.decode(Response.self, from: data)
+                        if let response = response, response.createdAt != nil {
+                            completionHandler(true, nil)
+                        }
+                    }
+                } catch {
+                    let msg = "Could not parse the data as JSON: \(error.localizedDescription)"
+                    print(msg)
+                    let userInfo = [NSLocalizedDescriptionKey : msg]
+                    completionHandler(false, NSError(domain: "postStudentLocation", code: 1, userInfo: userInfo))
+                }
+                
+            }
+        }
+    }
+    
+    func updateStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+        let paramHeaders = [
+            Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
+            Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
+            ] as [String: AnyObject]
+        
+        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
+        
+        let url = Constants.ParseMethods.StudentLocation + "/" + (location.locationID ?? "")
+        
+        _ = taskForPUTMethod(url, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse, completionHandlerForPUT: { (data, error) in
+            if let error = error {
+                print(error)
+                completionHandler(false, error)
+            } else {
+                
+                struct Response: Codable {
+                    let updatedAt: String?
+                }
+                
+                var response: Response!
+                do {
+                    if let data = data {
+                        let jsonDecoder = JSONDecoder()
+                        response = try jsonDecoder.decode(Response.self, from: data)
+                        if let response = response, response.updatedAt != nil {
+                            completionHandler(true, nil)
+                        }
+                    }
+                } catch {
+                    let msg = "Could not parse the data as JSON: \(error.localizedDescription)"
+                    print(msg)
+                    let userInfo = [NSLocalizedDescriptionKey : msg]
+                    completionHandler(false, NSError(domain: "updateStudentLocation", code: 1, userInfo: userInfo))
+                }
+                
+            }
+        })
     }
     
     func parseStudentsLocation(data: Data?) -> StudentsLocation? {
@@ -117,5 +177,20 @@ extension Client {
             response.error = NSError(domain: "parseStudentInfo", code: 1, userInfo: userInfo)
         }
         return response
+    }
+    
+    func parseSession(data: Data?) -> (UserSession?, NSError?) {
+        var studensLocation: (userSession: UserSession?, error: NSError?) = (nil, nil)
+        do {
+            if let data = data {
+                let jsonDecoder = JSONDecoder()
+                studensLocation.userSession = try jsonDecoder.decode(UserSession.self, from: data)
+            }
+        } catch {
+            print("Could not parse the data as JSON: \(error.localizedDescription)")
+            let userInfo = [NSLocalizedDescriptionKey : error]
+            studensLocation.error = NSError(domain: "parseSession", code: 1, userInfo: userInfo)
+        }
+        return studensLocation
     }
 }

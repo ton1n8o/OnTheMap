@@ -37,9 +37,10 @@ class BaseViewController: UITabBarController {
                 self.showInfo(withTitle: "Error fetching student location", withMessage: error.localizedDescription)
             }
             if let locations = studentLocation?.locations, !locations.isEmpty {
-                let msg = "User \"\(locations.first!.locationLabel)\" has already posted a Student Location. Whould you like to Overwrite it?"
+                let location = locations.first!
+                let msg = "User \"\(location.locationLabel)\" has already posted a Student Location. Whould you like to Overwrite it?"
                 self.showConfirmationAlert(withMessage: msg, actionTitle: "Overwrite", action: {
-                    self.showPostingView()
+                    self.showPostingView(studentLocationID: location.objectId)
                 })
             } else {
                 self.showPostingView()
@@ -58,8 +59,9 @@ class BaseViewController: UITabBarController {
         }
     }
     
-    private func showPostingView() {
+    private func showPostingView(studentLocationID: String? = nil) {
         let postingView = storyboard?.instantiateViewController(withIdentifier: "PostingView") as! PostingView
+        postingView.studentLocationID = studentLocationID
         navigationController?.pushViewController(postingView, animated: true)
     }
 

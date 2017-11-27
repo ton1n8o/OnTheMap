@@ -20,6 +20,7 @@ class PostingView: UIViewController {
     
     // MARK: - Variables
     
+    var studentLocationID: String? // based on this flag, let's decide whether we're going to perform a POST or a PUT operation.
     lazy var geocoder = CLGeocoder()
     
     // MARK: - UIViewController lifecycle
@@ -74,11 +75,44 @@ class PostingView: UIViewController {
                 if let location = location {
                     let coordinate = location.coordinate
                     print("\(coordinate.latitude), \(coordinate.longitude)")
-                    
+                    self.syncStudentLocation(location.coordinate)
                 } else {
                     self.showInfo(withMessage: "No Matching Location Found")
                 }
             }
+        }
+    }
+    
+    private func syncStudentLocation(_ coordinate: CLLocationCoordinate2D) {
+        
+        let nameComponents = Client.shared().userName.components(separatedBy: " ")
+        let firstName = nameComponents.first ?? ""
+        let lastName = nameComponents.last ?? ""
+        
+        let studentLocation = StudentLocation(
+            locationID: studentLocationID,
+            uniqueKey: Client.shared().userKey,
+            firstName: firstName,
+            lastName: lastName,
+            mapString: textFieldLocation.text!,
+            mediaURL: textFieldLink.text!,
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude
+        )
+        
+        if studentLocationID == nil {
+            // POST
+            
+        } else {
+            // PUT
+            Client.shared().updateStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                if let error = error {
+                    self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
+                } else {
+                    self.showInfo(withTitle: "Success", withMessage: "Student Location updated!")
+                }
+                self.enableControllers(true)
+            })
         }
     }
     
