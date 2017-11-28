@@ -22,12 +22,18 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="E52-r5-7eQ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7LZ-4F-qXV">
+                                <rect key="frame" x="169" y="323" width="37" height="37"/>
+                                <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="7LZ-4F-qXV" firstAttribute="centerX" secondItem="uFF-yC-guE" secondAttribute="centerX" id="1Fb-Q4-iPF"/>
                             <constraint firstItem="uFF-yC-guE" firstAttribute="bottom" secondItem="E52-r5-7eQ" secondAttribute="bottom" id="D6v-ep-ebE"/>
                             <constraint firstItem="uFF-yC-guE" firstAttribute="trailing" secondItem="E52-r5-7eQ" secondAttribute="trailing" id="LTW-jO-p4V"/>
                             <constraint firstItem="E52-r5-7eQ" firstAttribute="top" secondItem="uFF-yC-guE" secondAttribute="top" id="hms-8w-q6v"/>
+                            <constraint firstItem="7LZ-4F-qXV" firstAttribute="centerY" secondItem="uFF-yC-guE" secondAttribute="centerY" id="mWs-M1-KW1"/>
                             <constraint firstItem="E52-r5-7eQ" firstAttribute="leading" secondItem="uFF-yC-guE" secondAttribute="leading" id="xI3-QU-btm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uFF-yC-guE"/>
@@ -41,6 +47,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="7LZ-4F-qXV" id="ogg-Gm-g6n"/>
                         <outlet property="mapView" destination="E52-r5-7eQ" id="jqs-nw-2Cm"/>
                     </connections>
                 </viewController>
@@ -111,13 +118,19 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-VJ-FNj">
+                                <rect key="frame" x="169" y="301" width="37" height="37"/>
+                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2jW-9r-dyL" firstAttribute="trailing" secondItem="Cf2-kh-ixh" secondAttribute="trailing" id="7in-qu-Hxt"/>
                             <constraint firstItem="Cf2-kh-ixh" firstAttribute="leading" secondItem="2jW-9r-dyL" secondAttribute="leading" id="Hbg-ho-Bz4"/>
                             <constraint firstItem="Cf2-kh-ixh" firstAttribute="top" secondItem="2jW-9r-dyL" secondAttribute="top" id="c4h-C9-vKc"/>
+                            <constraint firstItem="8VG-VJ-FNj" firstAttribute="centerY" secondItem="2jW-9r-dyL" secondAttribute="centerY" id="h2x-3i-xeV"/>
                             <constraint firstItem="2jW-9r-dyL" firstAttribute="bottom" secondItem="Cf2-kh-ixh" secondAttribute="bottom" id="tNq-e7-N1g"/>
+                            <constraint firstItem="8VG-VJ-FNj" firstAttribute="centerX" secondItem="2jW-9r-dyL" secondAttribute="centerX" id="zEl-iX-VYu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2jW-9r-dyL"/>
                     </view>
@@ -126,6 +139,7 @@
                     <navigationItem key="navigationItem" id="zh7-hx-KEh"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="8VG-VJ-FNj" id="LO3-nh-SXz"/>
                         <outlet property="dataProvider" destination="9Fu-sz-ly6" id="hau-a6-2H5"/>
                         <outlet property="tableView" destination="Cf2-kh-ixh" id="AMB-0Z-YaY"/>
                     </connections>

@@ -15,13 +15,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Outlets
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - UIViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapView")
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .reload, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadStarted), name: .reloadStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCompleted), name: .reloadCompleted, object: nil)
+        
         mapView.delegate = self
         loadUserInfo()
     }
@@ -32,8 +35,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Helpers
     
-    @objc func reload() {
+    @objc func reloadStarted() {
         performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+            self.mapView.alpha = 0.5
+        }
+    }
+    
+    @objc func reloadCompleted() {
+        performUIUpdatesOnMain {
+            self.activityIndicator.stopAnimating()
+            self.mapView.alpha = 1
             self.showLocations(locations: self.appDelegate.locations)
         }
     }

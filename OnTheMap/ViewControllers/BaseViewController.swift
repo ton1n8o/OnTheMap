@@ -18,6 +18,7 @@ class BaseViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("BaseView")
         loadStudentsLocation()
     }
     
@@ -53,9 +54,11 @@ class BaseViewController: UITabBarController {
     // MARK: - Helpers
     
     private func loadStudentsLocation() {
+        NotificationCenter.default.post(name: .reloadStarted, object: nil)
         _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
             if let error = error {
                 self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
+                NotificationCenter.default.post(name: .reloadCompleted, object: nil)
                 return
             }
             if let studentsLocation = Client.shared().parseStudentsLocation(data: data) {
@@ -64,10 +67,10 @@ class BaseViewController: UITabBarController {
                 self.performUIUpdatesOnMain {
                     self.appDelegate.locations = locations
                 }
-                NotificationCenter.default.post(name: .reload, object: nil)
             } else {
                 self.showInfo(withTitle: "Error", withMessage: "Could not parse the data.")
             }
+            NotificationCenter.default.post(name: .reloadCompleted, object: nil)
         }
     }
     

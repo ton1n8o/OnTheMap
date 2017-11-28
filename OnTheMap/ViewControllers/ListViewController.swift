@@ -14,17 +14,21 @@ class ListViewController: UIViewController, LocationSelectionDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dataProvider: DataProvider!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - UIViewController lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .reload, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadStarted), name: .reloadStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCompleted), name: .reloadCompleted, object: nil)
+        
         dataProvider.delegate = self
         tableView.dataSource = dataProvider
         tableView.delegate = dataProvider
         
-        reload()
+        reloadCompleted()
+        
     }
     
     deinit {
@@ -33,8 +37,15 @@ class ListViewController: UIViewController, LocationSelectionDelegate {
     
     // MARK: - Helpers
     
-    @objc func reload() {
+    @objc func reloadStarted () {
         performUIUpdatesOnMain {
+            self.activityIndicator.startAnimating()
+        }
+    }
+    
+    @objc func reloadCompleted() {
+        performUIUpdatesOnMain {
+            self.activityIndicator.stopAnimating()
             self.dataProvider.locations = self.appDelegate.locations
             self.tableView.reloadData()
         }

@@ -140,10 +140,10 @@
 		02E68A8B1FB531F3003B57DB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				02E68A7B1FB53065003B57DB /* LoginViewController.swift */,
-				02EEDF581FC6F4160043FFD1 /* ListViewController.swift */,
-				028813D11FC1C38D0049201C /* MapViewController.swift */,
 				02EEDF5F1FC708730043FFD1 /* BaseViewController.swift */,
+				02EEDF581FC6F4160043FFD1 /* ListViewController.swift */,
+				02E68A7B1FB53065003B57DB /* LoginViewController.swift */,
+				028813D11FC1C38D0049201C /* MapViewController.swift */,
 				0214C94D1FC99FF200991A99 /* PostingView.swift */,
 			);
 			path = ViewControllers;

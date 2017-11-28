@@ -18,6 +18,6 @@ extension UIView {
 }
 
 extension Notification.Name {
-    static let reload = Notification.Name("reload")
+    static let reloadStarted = Notification.Name("reload")
+    static let reloadCompleted = Notification.Name("completed")
 }
-
