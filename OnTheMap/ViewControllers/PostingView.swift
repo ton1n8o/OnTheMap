@@ -73,8 +73,6 @@ class PostingView: UIViewController {
                 }
                 
                 if let location = location {
-                    let coordinate = location.coordinate
-                    print("\(coordinate.latitude), \(coordinate.longitude)")
                     self.syncStudentLocation(location.coordinate)
                 } else {
                     self.showInfo(withMessage: "No Matching Location Found")
@@ -117,7 +115,10 @@ class PostingView: UIViewController {
         if let error = error {
             self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
         } else {
-            self.showInfo(withTitle: "Success", withMessage: "Student Location updated!")
+            self.showInfo(withTitle: "Success", withMessage: "Student Location updated!", action: {
+                self.navigationController?.popViewController(animated: true)
+                NotificationCenter.default.post(name: .reload, object: nil)
+            })
         }
         self.enableControllers(true)
     }

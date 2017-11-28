@@ -18,8 +18,12 @@ class BaseViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("BaseView")
+        NotificationCenter.default.addObserver(self, selector: #selector(loadStudentsLocation), name: .reload, object: nil)
         loadStudentsLocation()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Actions
@@ -53,7 +57,7 @@ class BaseViewController: UITabBarController {
 
     // MARK: - Helpers
     
-    private func loadStudentsLocation() {
+    @objc private func loadStudentsLocation() {
         NotificationCenter.default.post(name: .reloadStarted, object: nil)
         _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
             if let error = error {
@@ -63,7 +67,6 @@ class BaseViewController: UITabBarController {
             }
             if let studentsLocation = Client.shared().parseStudentsLocation(data: data) {
                 let locations =  studentsLocation.locations
-                print("Locations: \(locations.count)")
                 self.performUIUpdatesOnMain {
                     self.appDelegate.locations = locations
                 }
