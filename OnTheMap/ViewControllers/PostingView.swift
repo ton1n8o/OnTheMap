@@ -20,7 +20,7 @@ class PostingView: UIViewController {
     
     // MARK: - Variables
     
-    var studentLocationID: String? // based on this flag, let's decide whether we're going to perform a POST or a PUT operation.
+    var studentLocationID: String? // based on this property, let's decide whether we're going to perform a POST or a PUT operation.
     lazy var geocoder = CLGeocoder()
     
     // MARK: - UIViewController lifecycle

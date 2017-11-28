@@ -16,16 +16,30 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
+    // MARK: - UIViewController lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("MapView")
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .reload, object: nil)
         mapView.delegate = self
         loadUserInfo()
-        loadStudentsLocation()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     // MARK: - Helpers
     
+    @objc func reload() {
+        performUIUpdatesOnMain {
+            self.showLocations(locations: self.appDelegate.locations)
+        }
+    }
+    
     private func showLocations(locations: [Location]) {
+        mapView.removeAnnotations(mapView.annotations)
         for location in locations {
             if let coordinate = extractCoordinate(location: location) {
                 let annotation = MKPointAnnotation()
@@ -55,25 +69,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         })
     }
     
-    private func loadStudentsLocation() {
-        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
-            if let error = error {
-                self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
-                return
-            }
-            if let studentsLocation = Client.shared().parseStudentsLocation(data: data) {
-                let locations =  studentsLocation.locations
-                print("Locations: \(locations.count)")
-                self.performUIUpdatesOnMain {
-                    self.appDelegate.locations = locations
-                    self.showLocations(locations: locations)
-                }
-            } else {
-                self.showInfo(withTitle: "Error", withMessage: "Could not parse the data.")
-            }
-        }
-    }
-
     // MARK: - MKMapViewDelegate
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

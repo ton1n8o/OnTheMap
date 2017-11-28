@@ -47,9 +47,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             showInfo(withTitle: "Field required", withMessage: "Please fill in your password.")
             return
         }
-        
+        authenticateUser(email: email, password: password)
+    }
+    
+    @IBAction func signUpPressed(_ sender: AnyObject) {
+        openWithSafari("https://auth.udacity.com/sign-up")
+    }
+    
+    // MARK: - Helpers
+    
+    private func authenticateUser(email: String, password: String) {
         Client.shared().authenticateWith(userEmail: email, andPassword: password) { (success, errorMessage) in
             if success {
+                self.performUIUpdatesOnMain {
+                    self.userEmail.text = ""
+                    self.userPassword.text = ""
+                }
                 self.performSegue(withIdentifier: "showMap", sender: nil)
             } else {
                 self.performUIUpdatesOnMain {
@@ -62,12 +75,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.enableControllers(true)
         }
     }
-    
-    @IBAction func signUpPressed(_ sender: AnyObject) {
-        openWithSafari("https://auth.udacity.com/sign-up")
-    }
-    
-    // MARK: - Helpers
     
     private func enableControllers(_ enable: Bool) {
         self.enableUI(views: userEmail, userPassword, buttonLogin, buttonSignUp, enable: enable)

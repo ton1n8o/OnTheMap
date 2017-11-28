@@ -19,11 +19,25 @@ class ListViewController: UIViewController, LocationSelectionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: .reload, object: nil)
         dataProvider.delegate = self
-        dataProvider.locations = appDelegate.locations
         tableView.dataSource = dataProvider
         tableView.delegate = dataProvider
-        tableView.reloadData()
+        
+        reload()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: - Helpers
+    
+    @objc func reload() {
+        performUIUpdatesOnMain {
+            self.dataProvider.locations = self.appDelegate.locations
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - LocationSelectionDelegate
