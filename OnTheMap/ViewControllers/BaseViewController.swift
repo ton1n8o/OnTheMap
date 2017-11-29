@@ -55,7 +55,9 @@ class BaseViewController: UITabBarController {
                     self.showPostingView(studentLocationID: location.objectId)
                 })
             } else {
-                self.showPostingView()
+                self.performUIUpdatesOnMain {
+                    self.showPostingView()
+                }
             }
             self.enableControllers(true)
         }
