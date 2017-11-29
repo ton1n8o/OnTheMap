@@ -34,6 +34,7 @@ class PostingView: UIViewController {
     // MARK: - Actions
     
     @IBAction func findLocation(_ sender: Any) {
+        
         textFieldLocation.text = "Uberlandia MG"
         textFieldLink.text = "http://www.terra.com.br"
         
@@ -83,6 +84,8 @@ class PostingView: UIViewController {
     
     private func syncStudentLocation(_ coordinate: CLLocationCoordinate2D) {
         
+        self.enableControllers(true)
+        
         let nameComponents = Client.shared().userName.components(separatedBy: " ")
         let firstName = nameComponents.first ?? ""
         let lastName = nameComponents.last ?? ""
@@ -98,29 +101,10 @@ class PostingView: UIViewController {
             longitude: coordinate.longitude
         )
         
-        if studentLocationID == nil {
-            // POST
-            Client.shared().postStudentLocation(location: studentLocation, completionHandler: { (success, error) in
-                self.handleSyncLocationResponse(error: error)
-            })
-        } else {
-            // PUT
-            Client.shared().updateStudentLocation(location: studentLocation, completionHandler: { (success, error) in
-                self.handleSyncLocationResponse(error: error)
-            })
-        }
-    }
-    
-    private func handleSyncLocationResponse(error: NSError?) {
-        if let error = error {
-            self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
-        } else {
-            self.showInfo(withTitle: "Success", withMessage: "Student Location updated!", action: {
-                self.navigationController?.popViewController(animated: true)
-                NotificationCenter.default.post(name: .reload, object: nil)
-            })
-        }
-        self.enableControllers(true)
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "MapPinLocationView") as! MapPinLocationView
+        viewController.studentLocation = studentLocation
+        navigationController?.pushViewController(viewController, animated: true)
+        
     }
     
     private func enableControllers(_ enable: Bool) {

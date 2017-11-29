@@ -229,7 +229,55 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kq2-h9-iB8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="-2928"/>
+            <point key="canvasLocation" x="278" y="-2928"/>
+        </scene>
+        <!--Map Pin Location View-->
+        <scene sceneID="wgk-7K-1Hf">
+            <objects>
+                <viewController storyboardIdentifier="MapPinLocationView" id="0GP-7M-N5Q" customClass="MapPinLocationView" customModule="OnTheMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JhK-oh-Tfz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-te-SsN">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dte-hf-1iQ">
+                                <rect key="frame" x="35" y="607" width="305" height="40"/>
+                                <color key="backgroundColor" red="0.30980392159999998" green="0.69411764710000001" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="oKW-Hh-e3O"/>
+                                </constraints>
+                                <state key="normal" title="FINISH">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="findLocation:" destination="j3y-dq-hhN" eventType="touchUpInside" id="dUj-5T-9DQ"/>
+                                    <action selector="finish:" destination="0GP-7M-N5Q" eventType="touchUpInside" id="I0d-MB-VDP"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4Vd-te-SsN" firstAttribute="leading" secondItem="NgG-nu-ECv" secondAttribute="leading" id="0bZ-K6-gf8"/>
+                            <constraint firstItem="4Vd-te-SsN" firstAttribute="trailing" secondItem="NgG-nu-ECv" secondAttribute="trailing" id="1L3-FN-erA"/>
+                            <constraint firstItem="4Vd-te-SsN" firstAttribute="bottom" secondItem="NgG-nu-ECv" secondAttribute="bottom" id="5Pc-i7-VqZ"/>
+                            <constraint firstItem="Dte-hf-1iQ" firstAttribute="leading" secondItem="NgG-nu-ECv" secondAttribute="leading" constant="35" id="Cot-rR-ind"/>
+                            <constraint firstItem="NgG-nu-ECv" firstAttribute="trailing" secondItem="Dte-hf-1iQ" secondAttribute="trailing" constant="35" id="WrB-Hb-rmF"/>
+                            <constraint firstItem="NgG-nu-ECv" firstAttribute="bottom" secondItem="Dte-hf-1iQ" secondAttribute="bottom" constant="20" id="b3n-qH-l5o"/>
+                            <constraint firstItem="Dte-hf-1iQ" firstAttribute="centerX" secondItem="4Vd-te-SsN" secondAttribute="centerX" id="vt5-iy-y4v"/>
+                            <constraint firstItem="4Vd-te-SsN" firstAttribute="top" secondItem="NgG-nu-ECv" secondAttribute="top" id="xct-U9-qrk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="NgG-nu-ECv"/>
+                    </view>
+                    <connections>
+                        <outlet property="buttonLogin" destination="Dte-hf-1iQ" id="INi-WQ-Ngn"/>
+                        <outlet property="mapView" destination="4Vd-te-SsN" id="6cn-hy-cud"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ne-dW-wTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1068" y="-2928"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fg3-Ay-J1z">
