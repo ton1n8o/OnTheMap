@@ -10,6 +10,12 @@ import Foundation
 
 extension Client {
     
+    /// Authenticate a user using the given credentials.
+    ///
+    /// - Parameters:
+    ///   - userEmail: a user email
+    ///   - andPassword: a user password
+    ///   - completionHandlerForAuth: returns **true** in case it succeeds or **false** and the given error in case of failure.
     func authenticateWith(userEmail: String, andPassword: String, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         let jsonBody = "{\"udacity\": {\"username\": \"\(userEmail)\", \"password\": \"\(andPassword)\"}}"
         _ = taskForPOSTMethod(Constants.UdacityMethods.Authentication, parameters: [:], jsonBody: jsonBody, completionHandlerForPOST: { (data, error) in
@@ -39,6 +45,9 @@ extension Client {
         })
     }
     
+    /// Ends the current user session.
+    ///
+    /// - Parameter completionHandlerForLogout: returns **true** in case the logout function was executed properly or **false** and the given error.
     func logout(completionHandlerForLogout: @escaping (_ success: Bool, _ error: Error?) -> Void) {
         _ = taskForDeleteMethod(Constants.UdacityMethods.Authentication, parameters: [:], completionHandlerForDELETE: { (data, error) in
             if let error = error {
@@ -57,6 +66,9 @@ extension Client {
         })
     }
     
+    /// Fetches the logged user info.
+    ///
+    /// - Parameter completionHandler: returns the users logged info or an error.
     func studentInfo(completionHandler: @escaping (_ result: StudentInfo?, _ error: NSError?) -> Void) {
         let url = Constants.UdacityMethods.Users + "/\(userKey)"
         _ = taskForGETMethod(url, parameters: [:], completionHandlerForGET: { (data, error) in
@@ -89,6 +101,12 @@ extension Client {
         }
     }
     
+    /// Post a user location, it must be used only in case the given StudentLocation is being saved for the first time. For update operations use the
+    /// **updateStudentLocation** method instead.
+    ///
+    /// - Parameters:
+    ///   - location: the StudentLocation object with all the location details.
+    ///   - completionHandler: returns **true** in case it succeeds or **false** and the given error in case of failure.
     func postStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
         let paramHeaders = [
@@ -129,6 +147,11 @@ extension Client {
         }
     }
     
+    /// Update a student location.
+    ///
+    /// - Parameters:
+    ///   - location: the StudentLocation object with all the location details.
+    ///   - completionHandler: returns **true** in case it succeeds or **false** and the given error in case of failure.
     func updateStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         let paramHeaders = [
             Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
