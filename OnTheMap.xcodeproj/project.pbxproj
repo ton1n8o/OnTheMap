@@ -18,6 +18,7 @@
 		02B4E86F1FCB071E003BC5BF /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E86E1FCB071E003BC5BF /* StudentLocation.swift */; };
 		02B4E8711FCB149F003BC5BF /* StudentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E8701FCB149F003BC5BF /* StudentInfo.swift */; };
 		02B4E8731FCB14DD003BC5BF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B4E8721FCB14DD003BC5BF /* User.swift */; };
+		02BBBE5B1FCECDD000B442D0 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BBBE5A1FCECDD000B442D0 /* Session.swift */; };
 		02E68A7A1FB53065003B57DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A791FB53065003B57DB /* AppDelegate.swift */; };
 		02E68A7C1FB53065003B57DB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E68A7B1FB53065003B57DB /* LoginViewController.swift */; };
 		02E68A7F1FB53065003B57DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02E68A7D1FB53065003B57DB /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		02B4E86E1FCB071E003BC5BF /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		02B4E8701FCB149F003BC5BF /* StudentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentInfo.swift; sourceTree = "<group>"; };
 		02B4E8721FCB14DD003BC5BF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		02BBBE5A1FCECDD000B442D0 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		02E68A761FB53065003B57DB /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02E68A791FB53065003B57DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		02E68A7B1FB53065003B57DB /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				02B4E8701FCB149F003BC5BF /* StudentInfo.swift */,
 				02B4E8721FCB14DD003BC5BF /* User.swift */,
 				029686DB1FCC643700CF60CD /* UserSession.swift */,
+				02BBBE5A1FCECDD000B442D0 /* Session.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02BBBE5B1FCECDD000B442D0 /* Session.swift in Sources */,
 				02B4E86F1FCB071E003BC5BF /* StudentLocation.swift in Sources */,
 				02E68A7C1FB53065003B57DB /* LoginViewController.swift in Sources */,
 				028813D21FC1C38D0049201C /* MapViewController.swift in Sources */,

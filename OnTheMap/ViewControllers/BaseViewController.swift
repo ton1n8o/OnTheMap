@@ -29,7 +29,13 @@ class BaseViewController: UITabBarController {
     // MARK: - Actions
     
     @IBAction func logout(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        Client.shared().logout { (success, error) in
+            if success {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                self.showInfo(withTitle: "Error", withMessage: error!.localizedDescription)
+            }
+        }
     }
     
     @IBAction func reload(_ sender: Any) {

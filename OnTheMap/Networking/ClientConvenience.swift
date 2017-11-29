@@ -18,7 +18,7 @@ extension Client {
                 completionHandlerForAuth(false, error.localizedDescription)
             } else {
                 
-                let userSessionData = self.parseSession(data: data)
+                let userSessionData = self.parseUserSession(data: data)
                 if let sessionData = userSessionData.0 {
                     guard let account = sessionData.account, account.registered == true else {
                         completionHandlerForAuth(false, "Login Failed, user not registered.")
@@ -34,6 +34,24 @@ extension Client {
                 } else {
                     completionHandlerForAuth(false, userSessionData.1!.localizedDescription)
                     self.sessionID = nil
+                }
+            }
+        })
+    }
+    
+    func logout(completionHandlerForLogout: @escaping (_ success: Bool, _ error: Error?) -> Void) {
+        _ = taskForDeleteMethod(Constants.UdacityMethods.Authentication, parameters: [:], completionHandlerForDELETE: { (data, error) in
+            if let error = error {
+                print(error)
+                completionHandlerForLogout(false, error)
+            } else {
+                let sessionData = self.parseSession(data: data)
+                if let _ = sessionData.0 {
+                    self.userKey = ""
+                    self.sessionID = ""
+                    completionHandlerForLogout(true, nil)
+                } else {
+                    completionHandlerForLogout(false, sessionData.1!)
                 }
             }
         })
@@ -151,6 +169,8 @@ extension Client {
         })
     }
     
+    // MARK: - Helpers
+    
     func parseStudentsLocation(data: Data?) -> StudentsLocation? {
         var studensLocation: StudentsLocation?
         do {
@@ -179,7 +199,7 @@ extension Client {
         return response
     }
     
-    func parseSession(data: Data?) -> (UserSession?, NSError?) {
+    func parseUserSession(data: Data?) -> (UserSession?, NSError?) {
         var studensLocation: (userSession: UserSession?, error: NSError?) = (nil, nil)
         do {
             if let data = data {
@@ -189,8 +209,27 @@ extension Client {
         } catch {
             print("Could not parse the data as JSON: \(error.localizedDescription)")
             let userInfo = [NSLocalizedDescriptionKey : error]
-            studensLocation.error = NSError(domain: "parseSession", code: 1, userInfo: userInfo)
+            studensLocation.error = NSError(domain: "parseUserSession", code: 1, userInfo: userInfo)
         }
         return studensLocation
+    }
+    
+    func parseSession(data: Data?) -> (Session?, Error?) {
+        var sessionData: (session: Session?, error: Error?) = (nil, nil)
+        do {
+            
+            struct SessionData: Codable {
+                let session: Session
+            }
+            
+            if let data = data {
+                let jsonDecoder = JSONDecoder()
+                sessionData.session = try jsonDecoder.decode(SessionData.self, from: data).session
+            }
+        } catch {
+            print(error)
+            sessionData.error = error
+        }
+        return sessionData
     }
 }
