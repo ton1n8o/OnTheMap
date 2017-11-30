@@ -1,0 +1,5 @@
+*.xcuserstate
+*.xcuserdatad
+
+# Xcode Breakpoints.
+*.xcbkptlist

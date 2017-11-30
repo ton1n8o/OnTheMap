@@ -35,9 +35,6 @@ class PostingView: UIViewController {
     
     @IBAction func findLocation(_ sender: Any) {
         
-        textFieldLocation.text = "Uberlandia MG"
-        textFieldLink.text = "http://www.terra.com.br"
-        
         let location = textFieldLocation.text!
         let link = textFieldLink.text!
         
@@ -111,7 +108,7 @@ class PostingView: UIViewController {
         self.enableUI(views: textFieldLocation, textFieldLink, buttonFindLocation, enable: enable)
     }
     
-    func setUpNavBar(){
+    private func setUpNavBar(){
         //For title in navigation bar
         self.navigationItem.title = "Add Location"
         
