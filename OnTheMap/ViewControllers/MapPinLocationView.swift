@@ -94,5 +94,11 @@ class MapPinLocationView: BaseMapViewController {
             })
         }
     }
+ 
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        let span = MKCoordinateSpanMake(CLLocationDegrees(5), CLLocationDegrees(5))
+        let region = MKCoordinateRegion(center: mapView.annotations.first!.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
     
 }
