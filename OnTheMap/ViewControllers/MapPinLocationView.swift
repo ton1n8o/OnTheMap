@@ -16,6 +16,7 @@ class MapPinLocationView: BaseMapViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var buttonLogin: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Variables
     
@@ -50,14 +51,17 @@ class MapPinLocationView: BaseMapViewController {
     
     @IBAction func finish(_ sender: Any) {
         if let studentLocation = studentLocation {
+            showNetworkOperation(true)
             if studentLocation.locationID == nil {
                 // POST
                 Client.shared().postStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                    self.showNetworkOperation(false)
                     self.handleSyncLocationResponse(error: error)
                 })
             } else {
                 // PUT
                 Client.shared().updateStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                    self.showNetworkOperation(false)
                     self.handleSyncLocationResponse(error: error)
                 })
             }
@@ -74,6 +78,7 @@ class MapPinLocationView: BaseMapViewController {
             annotation.subtitle = location.mediaURL ?? ""
             annotation.coordinate = coordinate
             mapView.addAnnotation(annotation)
+            mapView.showAnnotations(mapView.annotations, animated: true)
         }
     }
     
@@ -94,11 +99,13 @@ class MapPinLocationView: BaseMapViewController {
             })
         }
     }
- 
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        let span = MKCoordinateSpanMake(CLLocationDegrees(5), CLLocationDegrees(5))
-        let region = MKCoordinateRegion(center: mapView.annotations.first!.coordinate, span: span)
-        mapView.setRegion(region, animated: true)
+    
+    private func showNetworkOperation(_ show: Bool) {
+        performUIUpdatesOnMain {
+            self.buttonLogin.isEnabled = !show
+            self.mapView.alpha = show ? 0.5 : 1
+            show ? self.activityIndicator.startAnimating() : self.activityIndicator.stopAnimating()
+        }
     }
     
 }

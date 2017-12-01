@@ -35,9 +35,6 @@ class PostingView: UIViewController {
     
     @IBAction func findLocation(_ sender: Any) {
         
-        textFieldLocation.text = "Kuala Lumpur Malaysia"
-        textFieldLink.text = "http://www.terra.com.br"
-        
         let location = textFieldLocation.text!
         let link = textFieldLink.text!
         

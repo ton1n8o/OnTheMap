@@ -24,7 +24,7 @@
                             </mapView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="7LZ-4F-qXV">
                                 <rect key="frame" x="141.5" y="273" width="37" height="37"/>
-                                <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,7 +121,7 @@
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8VG-VJ-FNj">
                                 <rect key="frame" x="141.5" y="251" width="37" height="37"/>
-                                <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,12 +258,18 @@
                                     <action selector="finish:" destination="0GP-7M-N5Q" eventType="touchUpInside" id="I0d-MB-VDP"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3FN-RL-CUe">
+                                <rect key="frame" x="142" y="276" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4Vd-te-SsN" firstAttribute="leading" secondItem="NgG-nu-ECv" secondAttribute="leading" id="0bZ-K6-gf8"/>
                             <constraint firstItem="4Vd-te-SsN" firstAttribute="trailing" secondItem="NgG-nu-ECv" secondAttribute="trailing" id="1L3-FN-erA"/>
+                            <constraint firstItem="3FN-RL-CUe" firstAttribute="centerY" secondItem="NgG-nu-ECv" secondAttribute="centerY" id="JXr-g8-iPf"/>
                             <constraint firstItem="4Vd-te-SsN" firstAttribute="top" secondItem="NgG-nu-ECv" secondAttribute="top" id="Md4-Qz-wpk"/>
+                            <constraint firstItem="3FN-RL-CUe" firstAttribute="centerX" secondItem="NgG-nu-ECv" secondAttribute="centerX" id="PL1-rd-AFE"/>
                             <constraint firstItem="NgG-nu-ECv" firstAttribute="bottom" secondItem="4Vd-te-SsN" secondAttribute="bottom" id="VRx-Yb-Pb6"/>
                             <constraint firstItem="NgG-nu-ECv" firstAttribute="bottom" secondItem="Dte-hf-1iQ" secondAttribute="bottom" constant="20" id="b3n-qH-l5o"/>
                             <constraint firstItem="Dte-hf-1iQ" firstAttribute="leading" secondItem="NgG-nu-ECv" secondAttribute="leading" constant="35" id="eVW-T0-jK6">
@@ -275,6 +281,7 @@
                         <viewLayoutGuide key="safeArea" id="NgG-nu-ECv"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="3FN-RL-CUe" id="9Yl-C5-Zny"/>
                         <outlet property="buttonLogin" destination="Dte-hf-1iQ" id="INi-WQ-Ngn"/>
                         <outlet property="mapView" destination="4Vd-te-SsN" id="6cn-hy-cud"/>
                     </connections>

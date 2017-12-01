@@ -62,6 +62,7 @@ class MapViewController: BaseMapViewController {
                 mapView.addAnnotation(annotation)
             }
         }
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     private func extractCoordinate(location: Location) -> CLLocationCoordinate2D? {
