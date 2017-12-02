@@ -90,7 +90,8 @@ extension Client {
     ///
     /// - Parameter completionHandler: returns all Students Information.
     func studentsInformation(completionHandler: @escaping (_ result: [StudentInformation]?, _ error: NSError?) -> Void) {
-        _ = taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
+        let params = [Constants.ParseParameterKeys.Order: "-updatedAt" as AnyObject]
+        _ = taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: params, apiType: .parse) { (data, error) in
             if let error = error {
                 print(error)
                 completionHandler(nil, error)

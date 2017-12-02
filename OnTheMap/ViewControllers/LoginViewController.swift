@@ -22,8 +22,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         userEmail.delegate = self
         userPassword.delegate = self
-        userEmail.text = "antoniocarlos.dev@gmail.com"
-        userPassword.text = ""
         
         buttonLogin.roundCorners()
     }
