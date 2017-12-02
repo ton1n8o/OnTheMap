@@ -14,15 +14,6 @@ extension UIViewController {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
-    var locations: [Location] {
-        get {
-            return appDelegate.locations
-        }
-        set {
-            appDelegate.locations = newValue
-        }
-    }
-    
     func showInfo(withTitle: String = "Info", withMessage: String, action: (() -> Void)? = nil) {
         performUIUpdatesOnMain {
             let ac = UIAlertController(title: withTitle, message: withMessage, preferredStyle: .alert)
@@ -62,7 +53,7 @@ extension UIViewController {
     ///
     /// - Parameter url: a valid URL.
     func openWithSafari(_ url: String) {
-        guard let url = URL(string: url) else {
+        guard let url = URL(string: url), UIApplication.shared.canOpenURL(url) else {
             showInfo(withMessage: "Invalid link.")
             return
         }

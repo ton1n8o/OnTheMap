@@ -46,30 +46,20 @@ class MapViewController: BaseMapViewController {
         performUIUpdatesOnMain {
             self.activityIndicator.stopAnimating()
             self.mapView.alpha = 1
-            self.showLocations(locations: self.appDelegate.locations)
+            self.showStudentsInformation(StudentsLocation.shared.studentsInformation)
         }
     }
     
-    private func showLocations(locations: [Location]) {
+    private func showStudentsInformation(_ studentsInformation: [StudentInformation]) {
         mapView.removeAnnotations(mapView.annotations)
-        for location in locations {
-            if let coordinate = extractCoordinate(location: location) {
-                let annotation = MKPointAnnotation()
-                annotation.title = location.locationLabel
-                annotation.subtitle = location.mediaURL ?? ""
-                annotation.coordinate = coordinate
-                
-                mapView.addAnnotation(annotation)
-            }
+        for info in studentsInformation where info.latitude != 0 && info.longitude != 0 {
+            let annotation = MKPointAnnotation()
+            annotation.title = info.labelName
+            annotation.subtitle = info.mediaURL
+            annotation.coordinate = CLLocationCoordinate2DMake(info.latitude, info.longitude)
+            mapView.addAnnotation(annotation)
         }
         mapView.showAnnotations(mapView.annotations, animated: true)
-    }
-    
-    private func extractCoordinate(location: Location) -> CLLocationCoordinate2D? {
-        if let lat = location.latitude, let lon = location.longitude {
-            return CLLocationCoordinate2DMake(lat, lon)
-        }
-        return nil
     }
     
     private func loadUserInfo() {

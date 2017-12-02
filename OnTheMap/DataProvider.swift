@@ -9,23 +9,22 @@
 import UIKit
 
 protocol LocationSelectionDelegate: class {
-    func didSelectLocation(location: Location)
+    func didSelectLocation(info: StudentInformation)
 }
 
 class DataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     
     weak var delegate: LocationSelectionDelegate?
-    var locations = [Location]()
     
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        return StudentsLocation.shared.studentsInformation.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationCell.identifier, for: indexPath) as! LocationCell
-        cell.configWith(location: locations[indexPath.row])
+        cell.configWith(StudentsLocation.shared.studentsInformation[indexPath.row])
         return cell
     }
     
@@ -36,7 +35,7 @@ class DataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectLocation(location: locations[indexPath.row])
+        delegate?.didSelectLocation(info: StudentsLocation.shared.studentsInformation[indexPath.row])
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

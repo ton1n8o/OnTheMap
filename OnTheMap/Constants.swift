@@ -54,6 +54,10 @@ struct Constants {
         static let StudentLocation = "/classes/StudentLocation"
     }
     
+    struct ParseJSONResponseKeys {
+        static let Results = "results"
+    }
+    
     struct ParseParameterKeys {
         static let APIKey = "X-Parse-REST-API-Key"
         static let ApplicationID = "X-Parse-Application-Id"

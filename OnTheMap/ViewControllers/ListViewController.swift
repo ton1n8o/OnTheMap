@@ -46,19 +46,14 @@ class ListViewController: UIViewController, LocationSelectionDelegate {
     @objc func reloadCompleted() {
         performUIUpdatesOnMain {
             self.activityIndicator.stopAnimating()
-            self.dataProvider.locations = self.appDelegate.locations
             self.tableView.reloadData()
         }
     }
     
     // MARK: - LocationSelectionDelegate
     
-    func didSelectLocation(location: Location) {
-        guard let mediaURL = location.mediaURL else {
-            showInfo(withMessage: "Invalid link.")
-            return
-        }
-        openWithSafari(mediaURL)
+    func didSelectLocation(info: StudentInformation) {
+        openWithSafari(info.mediaURL)
     }
 
 }

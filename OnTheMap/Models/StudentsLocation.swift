@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct StudentsLocation: Codable {
+struct StudentsLocation {
     
-    let locations: [Location]
+    static var shared = StudentsLocation()
     
-    enum CodingKeys: String, CodingKey {
-        case locations = "results"
-    }
+    private init() {}
+    
+    var studentsInformation = [StudentInformation]()
+    
 }

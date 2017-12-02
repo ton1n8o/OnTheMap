@@ -18,8 +18,8 @@ class BaseViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(loadStudentsLocation), name: .reload, object: nil)
-        loadStudentsLocation()
+        NotificationCenter.default.addObserver(self, selector: #selector(loadStudentsInformation), name: .reload, object: nil)
+        loadStudentsInformation()
     }
     
     deinit {
@@ -39,20 +39,18 @@ class BaseViewController: UITabBarController {
     }
     
     @IBAction func reload(_ sender: Any) {
-        loadStudentsLocation()
+        loadStudentsInformation()
     }
     
     @IBAction func updateLocation(_ sender: Any) {
         enableControllers(false)
-        Client.shared().studentLocation { (studentLocation, error) in
+        Client.shared().studentInformation { (studentInformation, error) in
             if let error = error {
                 self.showInfo(withTitle: "Error fetching student location", withMessage: error.localizedDescription)
-            }
-            if let locations = studentLocation?.locations, !locations.isEmpty {
-                let location = locations.first!
-                let msg = "User \"\(location.locationLabel)\" has already posted a Student Location. Whould you like to Overwrite it?"
+            } else if let studentInformation = studentInformation {
+                let msg = "User \"\(studentInformation.labelName)\" has already posted a Student Location. Whould you like to Overwrite it?"
                 self.showConfirmationAlert(withMessage: msg, actionTitle: "Overwrite", action: {
-                    self.showPostingView(studentLocationID: location.objectId)
+                    self.showPostingView(studentLocationID: studentInformation.locationID)
                 })
             } else {
                 self.performUIUpdatesOnMain {
@@ -65,21 +63,16 @@ class BaseViewController: UITabBarController {
 
     // MARK: - Helpers
     
-    @objc private func loadStudentsLocation() {
+    @objc private func loadStudentsInformation() {
         NotificationCenter.default.post(name: .reloadStarted, object: nil)
-        _ = Client.shared().taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
+        Client.shared().studentsInformation { (studentsInformation, error) in
             if let error = error {
                 self.showInfo(withTitle: "Error", withMessage: error.localizedDescription)
                 NotificationCenter.default.post(name: .reloadCompleted, object: nil)
                 return
             }
-            if let studentsLocation = Client.shared().parseStudentsLocation(data: data) {
-                let locations =  studentsLocation.locations
-                self.performUIUpdatesOnMain {
-                    self.appDelegate.locations = locations
-                }
-            } else {
-                self.showInfo(withTitle: "Error", withMessage: "Could not parse the data.")
+            if let studentsInformation = studentsInformation {
+                StudentsLocation.shared.studentsInformation = studentsInformation
             }
             NotificationCenter.default.post(name: .reloadCompleted, object: nil)
         }

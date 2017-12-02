@@ -88,15 +88,51 @@ extension Client {
     
     /// Fetches the Location for the user logged in.
     ///
+    /// - Parameter completionHandler: returns all Students Information.
+    func studentsInformation(completionHandler: @escaping (_ result: [StudentInformation]?, _ error: NSError?) -> Void) {
+        _ = taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: [:], apiType: .parse) { (data, error) in
+            if let error = error {
+                print(error)
+                completionHandler(nil, error)
+            } else {
+                if let data = data {
+                    self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: { (jsonDoc, error) in
+                        var students = [StudentInformation]()
+                        if let results = jsonDoc?[Constants.ParseJSONResponseKeys.Results] as? [[String: AnyObject]] {
+                            for doc in results {
+                                students.append(StudentInformation(doc))
+                            }
+                            completionHandler(students, nil)
+                            return
+                        }
+                        let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
+                        completionHandler(students, NSError(domain: "studentsInformation", code: 1, userInfo: userInfo))
+                    })
+                }
+            }
+        }
+    }
+    
+    /// Fetches the Location for the user logged in.
+    ///
     /// - Parameter completionHandler: returns a student Location in case it was saved previously.
-    func studentLocation(completionHandler: @escaping (_ result: StudentsLocation?, _ error: NSError?) -> Void) {
+    func studentInformation(completionHandler: @escaping (_ result: StudentInformation?, _ error: NSError?) -> Void) {
         let params = [Constants.ParseParameterKeys.Where: "{\"uniqueKey\":\"\(userKey)\"}" as AnyObject]
         _ = taskForGETMethod(Constants.ParseMethods.StudentLocation, parameters: params, apiType: .parse) { (data, error) in
             if let error = error {
                 print(error)
                 completionHandler(nil, error)
             } else {
-                completionHandler(self.parseStudentsLocation(data: data), nil)
+                if let data = data {
+                    self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: { (jsonDoc, error) in
+                        if let results = jsonDoc?[Constants.ParseJSONResponseKeys.Results] as? [[String: AnyObject]], let studentInformation = results.first {
+                            completionHandler(StudentInformation(studentInformation), nil)
+                            return
+                        }
+                        let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
+                        completionHandler(nil, NSError(domain: "studentInformation", code: 1, userInfo: userInfo))
+                    })
+                }
             }
         }
     }
@@ -194,17 +230,17 @@ extension Client {
     
     // MARK: - Helpers
     
-    func parseStudentsLocation(data: Data?) -> StudentsLocation? {
-        var studensLocation: StudentsLocation?
+    private func convertDataWithCompletionHandler(_ data: Data, completionHandlerForConvertData: (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        
+        var parsedResult: AnyObject! = nil
         do {
-            if let data = data {
-                let jsonDecoder = JSONDecoder()
-                studensLocation = try jsonDecoder.decode(StudentsLocation.self, from: data)
-            }
+            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as AnyObject
         } catch {
-            print("Could not parse the data as JSON: \(error.localizedDescription)")
+            let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
+            completionHandlerForConvertData(nil, NSError(domain: "convertDataWithCompletionHandler", code: 1, userInfo: userInfo))
         }
-        return studensLocation
+        
+        completionHandlerForConvertData(parsedResult, nil)
     }
     
     func parseStudentInfo(data: Data?) -> (StudentInfo?, NSError?) {
