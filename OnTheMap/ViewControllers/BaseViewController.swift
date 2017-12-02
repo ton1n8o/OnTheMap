@@ -88,7 +88,7 @@ class BaseViewController: UITabBarController {
     
     private func showPostingView(studentLocationID: String? = nil) {
         let postingView = storyboard?.instantiateViewController(withIdentifier: "PostingView") as! PostingView
-        postingView.studentLocationID = studentLocationID
+        postingView.locationID = studentLocationID
         navigationController?.pushViewController(postingView, animated: true)
     }
 

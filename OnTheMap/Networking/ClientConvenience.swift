@@ -142,16 +142,16 @@ extension Client {
     /// **updateStudentLocation** method instead.
     ///
     /// - Parameters:
-    ///   - location: the StudentLocation object with all the location details.
+    ///   - info: the StudentInformation object with all the location details.
     ///   - completionHandler: returns **true** in case it succeeds or **false** and the given error in case of failure.
-    func postStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+    func postStudentLocation(info: StudentInformation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
         let paramHeaders = [
             Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
             Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
             ] as [String: AnyObject]
         
-        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
+        let jsonBody = "{\"uniqueKey\": \"\(info.uniqueKey)\", \"firstName\": \"\(info.firstName)\", \"lastName\": \"\(info.lastName)\",\"mapString\": \"\(info.mapString)\", \"mediaURL\": \"\(info.mediaURL)\",\"latitude\": \(info.latitude), \"longitude\": \(info.longitude)}"
         
         _ = taskForPOSTMethod(Constants.ParseMethods.StudentLocation, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse) { (data, error) in
             if let error = error {
@@ -187,17 +187,17 @@ extension Client {
     /// Update a student location.
     ///
     /// - Parameters:
-    ///   - location: the StudentLocation object with all the location details.
+    ///   - info: the StudentInformation object with all the location details.
     ///   - completionHandler: returns **true** in case it succeeds or **false** and the given error in case of failure.
-    func updateStudentLocation(location: StudentLocation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+    func updateStudentLocation(info: StudentInformation, completionHandler: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         let paramHeaders = [
             Constants.ParseParameterKeys.APIKey       : Constants.ParseParametersValues.APIKey,
             Constants.ParseParameterKeys.ApplicationID: Constants.ParseParametersValues.ApplicationID,
             ] as [String: AnyObject]
         
-        let jsonBody = "{\"uniqueKey\": \"\(location.uniqueKey)\", \"firstName\": \"\(location.firstName)\", \"lastName\": \"\(location.lastName)\",\"mapString\": \"\(location.mapString)\", \"mediaURL\": \"\(location.mediaURL)\",\"latitude\": \(location.latitude), \"longitude\": \(location.longitude)}"
+        let jsonBody = "{\"uniqueKey\": \"\(info.uniqueKey)\", \"firstName\": \"\(info.firstName)\", \"lastName\": \"\(info.lastName)\",\"mapString\": \"\(info.mapString)\", \"mediaURL\": \"\(info.mediaURL)\",\"latitude\": \(info.latitude), \"longitude\": \(info.longitude)}"
         
-        let url = Constants.ParseMethods.StudentLocation + "/" + (location.locationID ?? "")
+        let url = Constants.ParseMethods.StudentLocation + "/" + (info.locationID ?? "")
         
         _ = taskForPUTMethod(url, parameters: [:], requestHeaderParameters: paramHeaders, jsonBody: jsonBody, apiType: .parse, completionHandlerForPUT: { (data, error) in
             if let error = error {

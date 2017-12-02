@@ -48,11 +48,4 @@ struct StudentInformation {
         return name
     }
     
-    private func parseValue(key: String, _ dict: [String: AnyObject]) -> String {
-        var result = ""
-        if let value = dict[key] as? String {
-            result = value
-        }
-        return result
-    }
 }

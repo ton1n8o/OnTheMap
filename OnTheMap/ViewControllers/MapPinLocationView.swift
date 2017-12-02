@@ -20,7 +20,7 @@ class MapPinLocationView: BaseMapViewController {
     
     // MARK: - Variables
     
-    var studentLocation: StudentLocation?
+    var studentInformation: StudentInformation?
     
     // MARK: - UIViewController lifecycle
 
@@ -30,7 +30,7 @@ class MapPinLocationView: BaseMapViewController {
         mapView.delegate = self
         buttonLogin.roundCorners()
         
-        if let studentLocation = studentLocation {
+        if let studentLocation = studentInformation {
             let location = Location(
                 objectId: "",
                 uniqueKey: nil,
@@ -50,17 +50,17 @@ class MapPinLocationView: BaseMapViewController {
     // MARK: - Actions
     
     @IBAction func finish(_ sender: Any) {
-        if let studentLocation = studentLocation {
+        if let studentLocation = studentInformation {
             showNetworkOperation(true)
             if studentLocation.locationID == nil {
                 // POST
-                Client.shared().postStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                Client.shared().postStudentLocation(info: studentLocation, completionHandler: { (success, error) in
                     self.showNetworkOperation(false)
                     self.handleSyncLocationResponse(error: error)
                 })
             } else {
                 // PUT
-                Client.shared().updateStudentLocation(location: studentLocation, completionHandler: { (success, error) in
+                Client.shared().updateStudentLocation(info: studentLocation, completionHandler: { (success, error) in
                     self.showNetworkOperation(false)
                     self.handleSyncLocationResponse(error: error)
                 })

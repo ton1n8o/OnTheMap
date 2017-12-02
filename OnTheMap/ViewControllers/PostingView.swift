@@ -20,7 +20,7 @@ class PostingView: UIViewController {
     
     // MARK: - Variables
     
-    var studentLocationID: String? // based on this property, let's decide whether we're going to perform a POST or a PUT operation.
+    var locationID: String? // based on this property, let's decide whether we're going to perform a POST or a PUT operation.
     lazy var geocoder = CLGeocoder()
     
     // MARK: - UIViewController lifecycle
@@ -80,28 +80,33 @@ class PostingView: UIViewController {
     }
     
     private func syncStudentLocation(_ coordinate: CLLocationCoordinate2D) {
-        
         self.enableControllers(true)
         
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "MapPinLocationView") as! MapPinLocationView
+        viewController.studentInformation = buildStudentInfo(coordinate)
+        navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
+    private func buildStudentInfo(_ coordinate: CLLocationCoordinate2D) -> StudentInformation {
         let nameComponents = Client.shared().userName.components(separatedBy: " ")
         let firstName = nameComponents.first ?? ""
         let lastName = nameComponents.last ?? ""
         
-        let studentLocation = StudentLocation(
-            locationID: studentLocationID,
-            uniqueKey: Client.shared().userKey,
-            firstName: firstName,
-            lastName: lastName,
-            mapString: textFieldLocation.text!,
-            mediaURL: textFieldLink.text!,
-            latitude: coordinate.latitude,
-            longitude: coordinate.longitude
-        )
+        var studentInfo = [
+            "uniqueKey": Client.shared().userKey,
+            "firstName": firstName,
+            "lastName": lastName,
+            "mapString": textFieldLocation.text!,
+            "mediaURL": textFieldLink.text!,
+            "latitude": coordinate.latitude,
+            "longitude": coordinate.longitude,
+            ] as [String: AnyObject]
         
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "MapPinLocationView") as! MapPinLocationView
-        viewController.studentLocation = studentLocation
-        navigationController?.pushViewController(viewController, animated: true)
-        
+        if let locationID = locationID {
+            studentInfo["objectId"] = locationID as AnyObject
+        }
+        return StudentInformation(studentInfo)
     }
     
     private func enableControllers(_ enable: Bool) {
