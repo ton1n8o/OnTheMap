@@ -126,8 +126,12 @@ extension Client {
             } else {
                 if let data = data {
                     self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: { (jsonDoc, error) in
-                        if let results = jsonDoc?[Constants.ParseJSONResponseKeys.Results] as? [[String: AnyObject]], let studentInformation = results.first {
-                            completionHandler(StudentInformation(studentInformation), nil)
+                        if let results = jsonDoc?[Constants.ParseJSONResponseKeys.Results] as? [[String: AnyObject]] {
+                            if let studentInformation = results.first {
+                                completionHandler(StudentInformation(studentInformation), nil)
+                                return
+                            }
+                            completionHandler(nil, nil)
                             return
                         }
                         let userInfo = [NSLocalizedDescriptionKey : "Could not parse the data as JSON: '\(data)'"]
